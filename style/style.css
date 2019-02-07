@@ -1,0 +1,61 @@
+/*GENERAL*/
+body {
+    padding-top: 1rem;
+}
+h1{
+    padding-bottom: 30px;
+    text-align: center;
+}
+h2{
+    text-align: center;
+}
+/*DIAPORAMA*/
+
+
+/*
+
+MAIN SECTION (MAP + FORM)
+
+*/
+
+#main{
+    display: flex;
+    width: 100%;
+    padding-left: 30px;
+}
+
+/*
+
+MAP
+
+*/
+
+#mapid{
+    height: 500px; 
+    flex-grow: 3;
+}
+
+/*
+
+RESERVATION FORM
+
+*/
+form{
+    
+    min-width: 300px;
+    flex-grow: 1;
+    margin: 0 30px;
+    text-align: center;
+    height: 500px;
+    border: 2px solid grey;
+    border-radius: 10px;
+}
+input{
+    text-align: center;
+    width: 90%;
+}
+.signature-pad{
+    border: 1px solid black;
+    height: 180px;
+    width: 90%;
+}
