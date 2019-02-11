@@ -10,12 +10,11 @@ jQuery(document).ready(function($){
     let signaturePad = new SignaturePad(canvas);
     let imgData = canvas.toDataURL();
     
+
+    
+     
     $('#clear').on('click', function(){
         signaturePad.clear();
-    });
-    
-    $('#download').on('click', function(){
-       to_image();
     });
 });
 
