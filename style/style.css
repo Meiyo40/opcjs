@@ -51,10 +51,11 @@ RESERVATION FORM
 form{
     background-color: #c3c0bb;
     min-width: 300px;
+    max-width: 30%;
     flex-grow: 1;
     margin: 0 30px;
     text-align: center;
-    height: 600px;
+    height: 480px;
     border: 2px solid grey;
     border-radius: 10px;
 }
@@ -73,10 +74,18 @@ input{
     color: #000;
     font-weight: bold;
 }
+#reserve-btn{
+    margin-top: 10px;
+    border-radius: 10px;
+}
+#signature-form{
+    display: none;   
+}
 .signature-pad{
-    border: 1px solid black;
-    height: 180px;
+    background-color: #fff;
+    border: 1px solid black;   
     width: 90%;
+    height: 100px;
 }
 
 #save {

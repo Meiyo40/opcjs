@@ -33,47 +33,44 @@
         <!--CARTE INTERACTIVE-->
         <div id="mapid"></div>
         
-        <div id="controlPanel">
-            <form>
-                <h2>Détails de la station</h2>
-                <div class="toggle-info">
-                    <label>Numéro et nom de la station: </label><br>
-                    <input type="text" name="name" id="name" placeholder="Aucune station selectionné" disabled>
-                </div>
-                <div class="toggle-info">
-                    <label>Adresse de la station: </label><br>
-                    <input type="text" name="address" id="address" placeholder="NA" disabled>
-                </div>
-                <div class="toggle-info">
-                    <label>Vélos disponible:  </label><br>
-                    <input type="text" name="velo" id="velo" placeholder="0" disabled>
-                </div>
-                <div class="toggle-info">
-                    <label>Places disponible:  </label><br>
-                    <input type="text" name="place" id="place" placeholder="0" disabled>
-                </div>
-                <div id="divider"></div>
-                <div class="toggle-info">
-                    <label>Nom réservation: </label><br>
-                    <input type="text" name="reservationName" id="reservationName" required>
-                </div>
-                <div class="toggle-info">
-                    <label>Prénom réservation: </label><br>
-                    <input type="text" name="reservationFirstName" id="reservationFirstName" required>
-                </div>
-                <div>
-                    <div class="wrapper">
-                        <label>Signature: </label><br>
-                        <canvas id="signature-pad" class="signature-pad"></canvas>
-                        <img id="theimage" />
-                    </div>
-                    <div>
-                        <button id="save">Enregistrer</button>
-                        <button id="clear">Clear</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+
+        <form id='UserForm'>
+            <h2>Détails de la station</h2>
+            <div class="toggle-info">
+                <label>Numéro et nom de la station: </label><br>
+                <input type="text" name="name" id="name" placeholder="Aucune station selectionné" disabled>
+            </div>
+            <div class="toggle-info">
+                <label>Adresse de la station: </label><br>
+                <input type="text" name="address" id="address" placeholder="NA" disabled>
+            </div>
+            <div class="toggle-info">
+                <label>Vélos disponible:  </label><br>
+                <input type="text" name="velo" id="velo" placeholder="0" disabled>
+            </div>
+            <div class="toggle-info">
+                <label>Places disponible:  </label><br>
+                <input type="text" name="place" id="place" placeholder="0" disabled>
+            </div>
+            <div id="divider"></div>
+            <div class="toggle-info">
+                <label>Nom réservation: </label><br>
+                <input type="text" name="reservationName" id="reservationName" required>
+            </div>
+            <div class="toggle-info">
+                <label>Prénom réservation: </label><br>
+                <input type="text" name="reservationFirstName" id="reservationFirstName" required>
+            </div>
+            <button id="reserve-btn" class="btn-primary">Réservation</button>
+            <div id="signature-form">
+                <label>Signature: </label><br>
+                <canvas id="signature-pad" class="signature-pad"></canvas>
+                <img id="theimage" />
+                <button id="save">Enregistrer</button>
+                <button id="clear">Clear</button>
+            </div>
+        </form>
+
     </section>
     
     <section id="TESTBETA">

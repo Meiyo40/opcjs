@@ -1,37 +1,24 @@
-//jQuery(document).ready(function($){
-//    
-//    function to_image(){
-//        var canvas = document.getElementById("signature-pad");
-//        document.getElementById("theimage").src = canvas.toDataURL();
-//        Canvas2Image.saveAsPNG(canvas);
-//    }
-//    
-//    let canvas = document.getElementById("signature-pad");
-//    let signaturePad = new SignaturePad(canvas);
-//    let imgData = canvas.toDataURL();
-//    
-//
-//    
-//     
-//    $('#clear').on('click', function(){
-//        signaturePad.clear();
-//    });
-//});
+//CANVAS DISPLAY
+let reserveBtn = document.getElementById('reserve-btn');
+let canvasForm = document.getElementById('signature-form');
+let formPad = document.getElementById('UserForm');
 
+reserveBtn.onclick = function (){
+    canvasForm.setAttribute('style', 'display: block'); 
+    reserveBtn.setAttribute('style', 'display: none');
+    formPad.setAttribute('style', 'height: 620px');
+};
 
 $(document).ready(function() {
 	
 	// Variables :
-	var color = "#000";
-	var painting = false;
-	var started = false;
-	var width_brush = 5;
-	var canvas = $("#signature-pad");
-	var cursorX, cursorY;
-	var restoreCanvasArray = [];
-	var restoreCanvasIndex = 0;
-	
-	var context = canvas[0].getContext('2d');
+	let color = "#000";
+	let painting = false;
+	let started = false;
+	let width_brush = 5;
+	let canvas = $("#signature-pad");
+	let cursorX, cursorY;
+	let context = canvas[0].getContext('2d');
 	
     
     
@@ -91,7 +78,7 @@ $(document).ready(function() {
 	
 	// Bouton Save :
 	$("#save").click(function() {
-		var canvas_tmp = document.getElementById("canvas");
+		let canvas_tmp = document.getElementById("canvas");
 		window.location = canvas_tmp.toDataURL("image/png");
 	});
 	
