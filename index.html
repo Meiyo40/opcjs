@@ -49,8 +49,17 @@
                     <input type="text" name="velo" id="velo" placeholder="0" disabled>
                 </div>
                 <div class="toggle-info">
+                    <label>Places disponible:  </label><br>
+                    <input type="text" name="place" id="place" placeholder="0" disabled>
+                </div>
+                <div id="divider"></div>
+                <div class="toggle-info">
                     <label>Nom réservation: </label><br>
                     <input type="text" name="reservationName" id="reservationName" required>
+                </div>
+                <div class="toggle-info">
+                    <label>Prénom réservation: </label><br>
+                    <input type="text" name="reservationFirstName" id="reservationFirstName" required>
                 </div>
                 <div>
                     <div class="wrapper">
@@ -59,7 +68,7 @@
                         <img id="theimage" />
                     </div>
                     <div>
-                        <button id="save">Save</button>
+                        <button id="save">Enregistrer</button>
                         <button id="clear">Clear</button>
                     </div>
                 </div>
@@ -87,7 +96,9 @@
     <script src="js/signature.js"></script>
     <script src="js/map.js"></script>
     <script src="js/ajax.js"></script>
+    <script src="js/reservation.js"></script>
     <script src="js/main.js"></script>
+    
     
 </body>
 </html>
