@@ -31,7 +31,7 @@ MAP
 */
 
 #mapid{
-    height: 500px; 
+    height: 600px; 
     flex-grow: 3;
 }
 
@@ -46,7 +46,7 @@ form{
     flex-grow: 1;
     margin: 0 30px;
     text-align: center;
-    height: 500px;
+    height: 600px;
     border: 2px solid grey;
     border-radius: 10px;
 }
