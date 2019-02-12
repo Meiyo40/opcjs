@@ -54,6 +54,11 @@ input{
     text-align: center;
     width: 90%;
 }
+#name::placeholder,
+#velo::placeholder{
+    color: #000;
+    font-weight: bold;
+}
 .signature-pad{
     border: 1px solid black;
     height: 180px;
