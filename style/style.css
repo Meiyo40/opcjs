@@ -89,6 +89,7 @@ input{
     height: 100px;
 }
 
+
 #save {
 	-moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
@@ -187,6 +188,7 @@ SECTION USER INFO RESERVATION
 */
         
 #user-information{
+    display: none;
     margin: 30px auto;
     width: 400px;
     text-align: center;

@@ -4,7 +4,7 @@ let canvasForm = document.getElementById('signature-form');
 let formPad = document.getElementById('UserForm');
 let cancelBtn = document.getElementById('cancel');
 let saveBtn = document.getElementById('save');
-
+let userUI = document.getElementById('user-information');
 reserveBtn.onclick = function (){
     let availableBike = parseInt(document.getElementById('velo').placeholder);
     if( availableBike > 0){
@@ -27,7 +27,7 @@ cancelBtn.onclick = function(){
 saveBtn.onclick = function(){
     
     user.savedHour = ((Date.now() % (24 * 60 * 60 * 1000)) - (new Date().getTimezoneOffset() * 60 * 1000)); // on sauvegarde l'heure de l'enregistrement en format milliseconde pour la comparaison du chrono
-    user.time = timer; //on lance le timer de 20min definit dans reservation.js
+    userUI.setAttribute('style', 'display: block'); 
     let img = document.getElementById('signature-pad');
     let urlIMG = img.toDataURL();
     let resaStation = document.getElementById('name').placeholder;
