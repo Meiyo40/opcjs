@@ -81,10 +81,11 @@ input{
 #signature-form{
     display: none;   
 }
-.signature-pad{
+#canvas-container{
+    margin: 5px auto;
     background-color: #fff;
     border: 1px solid black;   
-    width: 90%;
+    width: 250px;
     height: 100px;
 }
 
@@ -110,9 +111,10 @@ input{
 	font-family:Arial;
 	font-size:15px;
 	font-weight:bold;
-	padding:6px 24px;
+	padding:6px 12px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #1570cd;
+    margin-bottom: 10px;
 }
 #save:hover {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #1e62d0), color-stop(1, #3d94f6));
@@ -129,8 +131,8 @@ input{
 	top:1px;
 }
 
-
-#clear {
+#clear,
+#cancel{
 	-moz-box-shadow:inset 0px 1px 0px 0px #f5978e;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #f5978e;
 	box-shadow:inset 0px 1px 0px 0px #f5978e;
@@ -152,11 +154,12 @@ input{
 	font-family:Arial;
 	font-size:15px;
 	font-weight:bold;
-	padding:6px 24px;
+	padding:6px 12px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #810e05;
 }
-#clear:hover {
+#clear:hover,
+#cancel:hover{
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c62d1f), color-stop(1, #f24537));
 	background:-moz-linear-gradient(top, #c62d1f 5%, #f24537 100%);
 	background:-webkit-linear-gradient(top, #c62d1f 5%, #f24537 100%);
@@ -166,11 +169,31 @@ input{
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f', endColorstr='#f24537',GradientType=0);
 	background-color:#c62d1f;
 }
-#clear:active {
+#clear:active,
+#cancel:active{
 	position:relative;
 	top:1px;
 }
 
 
+/*
 
+
+
+SECTION USER INFO RESERVATION
+
+
+
+*/
         
+#user-information{
+    margin: 30px auto;
+    width: 400px;
+    text-align: center;
+    color: #fff;
+    border: solid 3px silver;
+    border-radius: 30px;
+}
+#user-information > p{
+    margin: 0;
+}

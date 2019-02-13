@@ -64,17 +64,24 @@
             <button id="reserve-btn" class="btn-primary">Réservation</button>
             <div id="signature-form">
                 <label>Signature: </label><br>
-                <canvas id="signature-pad" class="signature-pad"></canvas>
+                <div id="canvas-container">
+                    <canvas id="signature-pad"></canvas>
+                </div>
                 <img id="theimage" />
                 <button id="save">Enregistrer</button>
-                <button id="clear">Clear</button>
+                <button id="clear">Reset</button>
+                <button id="cancel">Annuler</button>
             </div>
         </form>
 
     </section>
     
-    <section id="TESTBETA">
+    <section id="user-information" class="hide">
         <!--INFO RESERVATION-->
+        
+        <p><strong>Votre réservation</strong><br>
+        Vélo réservé à la station <strong id="stationName"></strong> par <strong id="userName"></strong><br>
+        Temps restant: <strong id="minute"></strong>min <strong id="seconde"></strong>s</p>
     </section>
 
     
