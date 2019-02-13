@@ -14,8 +14,7 @@ reserveBtn.onclick = function (){
     }
     else{
         alert('Cette station ne dispose de pas velo disponible, merci de choisir une autre station');
-    }
-    
+    }  
 };
 
 cancelBtn.onclick = function(){

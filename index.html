@@ -61,16 +61,16 @@
                 <label>Prénom réservation: </label><br>
                 <input type="text" name="reservationFirstName" id="reservationFirstName" required>
             </div>
-            <button id="reserve-btn" class="btn-primary">Réservation</button>
+            <button id="reserve-btn" class="btn-primary" type="button" onclick="getData()">Réservation</button>
             <div id="signature-form">
                 <label>Signature: </label><br>
                 <div id="canvas-container">
                     <canvas id="signature-pad"></canvas>
                 </div>
                 <img id="theimage" />
-                <button id="save">Enregistrer</button>
-                <button id="clear">Reset</button>
-                <button id="cancel">Annuler</button>
+                <button id="save" type="button" onclick="getData()">Enregistrer</button>
+                <button id="clear" type="button" onclick="getData()">Reset</button>
+                <button id="cancel" type="button" onclick="getData()">Annuler</button>
             </div>
         </form>
 
