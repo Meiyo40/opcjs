@@ -39,11 +39,11 @@
     <section id="diaporama">
         <!--DIAPO TUTORIEL-->
         
-        
+        <h2>Diaporama guide</h2>
         <div id="carousel">
-            <img class="slide" id="slide1" src="assets/diapo/diapo1.png">
-            <img class="slide" id="slide2" src="assets/diapo/diapo2.png">
-            <img class="slide" id="slide3" src="assets/diapo/diapo3.png">
+            <img class="slide" id="slide1" src="assets/diapo/diapo1.png" alt="Premier slide du tutoriel pas a pas.">
+            <img class="slide" id="slide2" src="assets/diapo/diapo2.png" alt="Deuxieme slide du tutoriel pas a pas.">
+            <img class="slide" id="slide3" src="assets/diapo/diapo3.png" alt="Troisieme slide du tutoriel pas a pas.">
         </div>
         <div id="carousel-control">
             <button class="fas fa-arrow-circle-left" onclick="plusDivs(-1)"> Précédant</button>
@@ -56,49 +56,51 @@
     </section>
     
     <section id="main">
+        <h2>Carte interactive</h2>
+        <p>Réservo votre velib n'a jamais été aussi facile!</p>
         <!--CARTE INTERACTIVE-->
-        <div id="mapid"></div>
-        
-
-        <form id='UserForm'>
-            <h2>Détails de la station</h2>
-            <div class="toggle-info">
-                <label>Numéro et nom de la station: </label><br>
-                <input type="text" name="name" id="name" placeholder="Aucune station selectionné" disabled>
-            </div>
-            <div class="toggle-info">
-                <label>Adresse de la station: </label><br>
-                <input type="text" name="address" id="address" placeholder="NA" disabled>
-            </div>
-            <div class="toggle-info">
-                <label>Vélos disponible:  </label><br>
-                <input type="text" name="velo" id="velo" placeholder="0" disabled>
-            </div>
-            <div class="toggle-info">
-                <label>Places disponible:  </label><br>
-                <input type="text" name="place" id="place" placeholder="0" disabled>
-            </div>
-            <div id="divider"></div>
-            <div class="toggle-info">
-                <label>Nom réservation: </label><br>
-                <input type="text" name="reservationName" id="reservationName" required>
-            </div>
-            <div class="toggle-info">
-                <label>Prénom réservation: </label><br>
-                <input type="text" name="reservationFirstName" id="reservationFirstName" required>
-            </div>
-            <button id="reserve-btn" class="btn-primary" type="button" onclick="getData()">Réservation</button>
-            <div id="signature-form">
-                <label>Signature: </label><br>
-                <div id="canvas-container">
-                    <canvas id="signature-pad"></canvas>
+        <div>
+            <div id="mapid"></div>
+            
+            <form id='UserForm'>
+                <h2>Détails de la station</h2>
+                <div class="toggle-info">
+                    <label>Numéro et nom de la station: </label><br>
+                    <input type="text" name="name" id="name" placeholder="Aucune station selectionné" disabled>
                 </div>
-                <img id="theimage" />
-                <button id="save" type="button" onclick="getData()">Enregistrer</button>
-                <button id="clear" type="button" onclick="getData()">Reset</button>
-                <button id="cancel" type="button" onclick="getData()">Annuler</button>
-            </div>
-        </form>
+                <div class="toggle-info">
+                    <label>Adresse de la station: </label><br>
+                    <input type="text" name="address" id="address" placeholder="NA" disabled>
+                </div>
+                <div class="toggle-info">
+                    <label>Vélos disponible:  </label><br>
+                    <input type="text" name="velo" id="velo" placeholder="0" disabled>
+                </div>
+                <div class="toggle-info">
+                    <label>Places disponible:  </label><br>
+                    <input type="text" name="place" id="place" placeholder="0" disabled>
+                </div>
+                <div id="divider"></div>
+                <div class="toggle-info">
+                    <label>Nom réservation: </label><br>
+                    <input type="text" name="reservationName" id="reservationName" required>
+                </div>
+                <div class="toggle-info">
+                    <label>Prénom réservation: </label><br>
+                    <input type="text" name="reservationFirstName" id="reservationFirstName" required>
+                </div>
+                <button id="reserve-btn" class="btn-primary" type="button" onclick="getData()">Réservation</button>
+                <div id="signature-form">
+                    <label>Signature: </label><br>
+                    <div id="canvas-container">
+                        <canvas id="signature-pad"></canvas>
+                    </div>
+                    <button id="save" type="button" onclick="getData()">Enregistrer</button>
+                    <button id="clear" type="button" onclick="getData()">Reset</button>
+                    <button id="cancel" type="button" onclick="getData()">Annuler</button>
+                </div>
+            </form>
+        </div>
 
     </section>
     
