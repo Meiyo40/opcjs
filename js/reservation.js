@@ -15,14 +15,18 @@ if(localStorage.getItem('user')){
     
     reservName.value = tempUser.name;
     reservFirstName.value = tempUser.firstname;
-    
     userInfo();
 }
 
 var timer;
-let minute = user.timer[0];
-let seconde = user.timer[1];
+let minute;
+let seconde;
 var startTimer = false;
+
+if(typeof user != "undefined"){
+    minute = user.timer[0];
+    seconde = user.timer[1];
+}
 
 //Si un utilisateur existe (donc la reservation existe) et si la reservation est plus vielle que 20min, alors on reset!
 if(typeof user != "undefined"){
@@ -53,6 +57,7 @@ function start(){
 
 function timerDraw(){
     //user.timer[0] = minute / timer[1] = seconde
+    console.log(Date.now());
     if((user.timer[0] == 0)&&(user.timer[1] == 0)){
         resetStorage();   
     }
@@ -88,6 +93,7 @@ function userInfo(min, scd){
     secondeUI.textContent = scd;
     if (!startTimer){
         startTimer = true;
+        clearInterval(timer);
         start();
     }
 }
