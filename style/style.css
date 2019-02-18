@@ -225,3 +225,6 @@ SECTION USER INFO RESERVATION
 #user-information > p{
     margin: 0;
 }
+#reservNone{
+    display: none;
+}

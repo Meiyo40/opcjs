@@ -6,6 +6,7 @@ let cancelBtn = document.getElementById('cancel');
 let saveBtn = document.getElementById('save');
 let clearBtn = document.getElementById('clear');
 let userUI = document.getElementById('user-information');
+var user;
 
 reserveBtn.onclick = function () {
     let availableBike = parseInt(document.getElementById('velo').placeholder);
@@ -27,11 +28,13 @@ cancelBtn.onclick = function () {
 
 saveBtn.onclick = function () {
 
-    user.savedHour = ((Date.now() % (24 * 60 * 60 * 1000)) - (new Date().getTimezoneOffset() * 60 * 1000)); // on sauvegarde l'heure de l'enregistrement en format milliseconde pour la comparaison du chrono
+    let timestamp = ((Date.now() % (24 * 60 * 60 * 1000)) - (new Date().getTimezoneOffset() * 60 * 1000)); // on sauvegarde l'heure de l'enregistrement en format milliseconde pour la comparaison du chrono
     userUI.setAttribute('style', 'display: block');
     let img = document.getElementById('signature-pad');
     let urlIMG = img.toDataURL();
     let resaStation = document.getElementById('name').placeholder;
+    
+    user = new User(userName.value, userFirstName.value, new Date(), timestamp, resaStation, urlIMG);
 
     sessionStorage.setItem('signature', urlIMG);
     sessionStorage.setItem('station', resaStation);

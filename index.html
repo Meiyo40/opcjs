@@ -108,9 +108,14 @@
     <section id="user-information">
         <!--INFO RESERVATION-->
         
-        <p><strong>Votre réservation</strong><br>
-        Vélo réservé à la station <strong id="stationName"></strong> par <strong id="userName"></strong><br>
-        Temps restant: <strong id="minute"></strong>min <strong id="seconde"></strong>s</p>
+        <div id="reservOK">
+            <p><strong>Votre réservation</strong><br>
+            Vélo réservé à la station <strong id="stationName"></strong> par <strong id="userName"></strong><br>
+            Réservation valide durant encore: <strong id="minute"></strong>min <strong id="seconde"></strong>s</p>
+        </div>
+        <div id="reservNone">
+            <p>Votre réservation a été annulé ou n'est plus valide (temps écoulé supérieur à 20 min).</p>
+        </div>
     </section>
 
     
