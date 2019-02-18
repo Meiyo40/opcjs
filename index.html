@@ -36,20 +36,28 @@
 
     
 <body>
-    <h1>Bienvenue sur la page de réservation pour votre cycl'en'ville</h1>
+    <div id="logo-container"><img id="logo" src="assets/Logo_Cyclenville_Grand_Dax.png"></div>
+    <h1>Bienvenue sur cyclenville !</h1>
+    <p>Votre page de réservation pour votre cyclenville</p>
     <section id="diaporama">
         <!--DIAPO TUTORIEL-->
         
         <h2>Diaporama guide</h2>
         <div id="carousel">
+            <figure>
+                <img id="slide" class="" src="assets/diapo/diapo1.png">
+                <figcaption id="description"></figcaption>
+            </figure>
+<!--       
             <img class="slide" id="slide1" src="assets/diapo/diapo1.png" alt="Premier slide du tutoriel pas a pas.">
             <img class="slide" id="slide2" src="assets/diapo/diapo2.png" alt="Deuxieme slide du tutoriel pas a pas.">
             <img class="slide" id="slide3" src="assets/diapo/diapo3.png" alt="Troisieme slide du tutoriel pas a pas.">
+-->
         </div>
         <div id="carousel-control">
-            <button class="fas fa-arrow-circle-left" onclick="plusDivs(-1)"> Précédant</button>
+            <button class="fas fa-arrow-circle-left" onclick="less()"> Précédant</button>
             <button class="fas fa-pause-circle" onclick="pause()"> Pause</button>
-            <button class="fas" onclick="plusDivs(+1)"> Suivant <i class="fas fa-arrow-circle-right"></i></button>
+            <button class="fas" onclick="add()"> Suivant <i class="fas fa-arrow-circle-right"></i></button>
         </div>
         
         

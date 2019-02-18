@@ -6,6 +6,8 @@ let cancelBtn = document.getElementById('cancel');
 let saveBtn = document.getElementById('save');
 let clearBtn = document.getElementById('clear');
 let userUI = document.getElementById('user-information');
+let message = document.getElementById('reservNone');
+let oldMessage = document.getElementById('reservOK');
 var user;
 
 reserveBtn.onclick = function () {
@@ -41,6 +43,9 @@ saveBtn.onclick = function () {
         sessionStorage.setItem('station', resaStation);
         userInfo(minute, seconde); //On edit la partie pour les informations
         localStorage.setItem('user', JSON.stringify(user));
+        
+        message.setAttribute('style', 'display: none');
+        oldMessage.setAttribute('style', 'display: block');
     }
     else if((signature_validation > 1) && (signature_validation < 40)){
         alert('Votre signature semble un peu petite, merci de bien vouloir signer.');

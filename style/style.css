@@ -17,6 +17,14 @@ h2,
 p{
     text-align: center;
 }
+#logo-container{
+    display: flex;
+}
+#logo{
+    margin: 0 auto;
+    width: 200px;
+    height: 170px;
+}
 /*DIAPORAMA*/
 #diaporama{
     display: flex;
@@ -28,15 +36,32 @@ p{
     height: 30px;
 }
 #carousel{
-    width: 90%;
     max-width: 1000px;
     margin: 0 auto;
 }
 #carousel-control{
     margin: 0 auto;
 }
-.slide{
+#description{
+    padding: 5px;
+    text-align: center;
+    font-size: 1.5rem;
+    border: 3px solid #B3D360; 
+}
+#slide{
     width: 100%;
+    opacity: 0;
+}
+.animate{
+    animation-name: test;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+@keyframes test{
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+.slide{
     height: auto;
     border-radius: 30px;
 }

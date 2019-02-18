@@ -9,7 +9,7 @@ if(localStorage.getItem('user')){
                     tempUser.signature,
                     tempUser.timer
                    );
-    
+    user.reset = tempUser.reset;
     let reservName = document.getElementById('reservationName');
     let reservFirstName = document.getElementById('reservationFirstName');
     
@@ -50,7 +50,15 @@ if(typeof user != "undefined"){
         let now = Date.now();
         if((now - userTS) > limitTimer){
             resetStorage();
+            user.dateReservation = null;
+            user.saveData();
         }
+    }
+    else{
+        let message = document.getElementById('reservNone');
+        let oldMessage = document.getElementById('reservOK');
+        message.setAttribute('style', 'display: block');
+        oldMessage.setAttribute('style', 'display: none');
     }
 }
 
@@ -73,7 +81,7 @@ function startInterval(){
 function timerDraw(){
     //user.timer[0] = minute / timer[1] = seconde
     if((user.timer[0] == 0)&&(user.timer[1] == 0)){
-        user.resetReservation();   
+        user.resetReservation();
     }
     
     else if((user.timer[0] >= 0)&&(user.timer[1] >= -1)){
@@ -121,14 +129,13 @@ function User(name, firstname, date, station, signature, remainingTime = [basicT
     this.signature = signature;
     this.timer = remainingTime;
     this.signatureValidation = signature_validation;
+    this.reset = false;
     
     this.saveData = function (){
         localStorage.setItem('user', JSON.stringify(user));
     }
     this.resetReservation = function(){
-        
-        let message = document.getElementById('reservNone');
-        let oldMessage = document.getElementById('reservOK');
+        this.reset = true;
         message.setAttribute('style', 'display: block');
         oldMessage.setAttribute('style', 'display: none');
         
@@ -141,5 +148,6 @@ function User(name, firstname, date, station, signature, remainingTime = [basicT
         seconde = 0;
         start = false;
         signature_validation = 0;
+        clear_canvas();
     }
 }
