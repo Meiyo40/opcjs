@@ -27,18 +27,19 @@ cancelBtn.onclick = function () {
 }
 
 saveBtn.onclick = function () {
-
-    let timestamp = ((Date.now() % (24 * 60 * 60 * 1000)) - (new Date().getTimezoneOffset() * 60 * 1000)); // on sauvegarde l'heure de l'enregistrement en format milliseconde pour la comparaison du chrono
-    userUI.setAttribute('style', 'display: block');
+    
+    let userName = document.getElementById('reservationName');
+    let userFirstName = document.getElementById('reservationFirstName');
     let img = document.getElementById('signature-pad');
     let urlIMG = img.toDataURL();
     let resaStation = document.getElementById('name').placeholder;
     
-    user = new User(userName.value, userFirstName.value, new Date(), timestamp, resaStation, urlIMG);
+    user = new User(userName.value, userFirstName.value, new Date(), resaStation, urlIMG);
 
     sessionStorage.setItem('signature', urlIMG);
     sessionStorage.setItem('station', resaStation);
-    userInfo(20, 00); //On edit la partie pour les informations
+    userInfo(minute, seconde); //On edit la partie pour les informations
+    localStorage.setItem('user', JSON.stringify(user));
 }
 
 clearBtn.onclick = function () {
