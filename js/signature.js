@@ -11,6 +11,7 @@ reserveBtn.onclick = function () {
     let availableBike = parseInt(document.getElementById('velo').placeholder);
     if (availableBike > 0) {
         canvasForm.setAttribute('style', 'display: block');
+        canvasSaveState();
         reserveBtn.setAttribute('style', 'display: none');
         formPad.setAttribute('style', 'height: auto');
     } else {
@@ -92,7 +93,9 @@ canvas.onmousemove = function (e) {
         drawLine();
     }
 };
-
+function canvasSaveState(){
+    context.save();
+}
 function paint() {
     context.stroke();
 }
@@ -117,4 +120,6 @@ function drawLine() {
 // Clear du Canvas :
 function clear_canvas() {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    context.beginPath();
+    context.restore();
 }
