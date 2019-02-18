@@ -28,23 +28,34 @@ cancelBtn.onclick = function () {
 
 saveBtn.onclick = function () {
     
-    let userName = document.getElementById('reservationName');
-    let userFirstName = document.getElementById('reservationFirstName');
-    let img = document.getElementById('signature-pad');
-    let urlIMG = img.toDataURL();
-    let resaStation = document.getElementById('name').placeholder;
-    
-    user = new User(userName.value, userFirstName.value, new Date(), resaStation, urlIMG);
+    if(signature_validation >= 40){
+        let userName = document.getElementById('reservationName');
+        let userFirstName = document.getElementById('reservationFirstName');
+        let img = document.getElementById('signature-pad');
+        let urlIMG = img.toDataURL();
+        let resaStation = document.getElementById('name').placeholder;
 
-    sessionStorage.setItem('signature', urlIMG);
-    sessionStorage.setItem('station', resaStation);
-    userInfo(minute, seconde); //On edit la partie pour les informations
-    localStorage.setItem('user', JSON.stringify(user));
+        user = new User(userName.value, userFirstName.value, new Date(), resaStation, urlIMG);
+
+        sessionStorage.setItem('signature', urlIMG);
+        sessionStorage.setItem('station', resaStation);
+        userInfo(minute, seconde); //On edit la partie pour les informations
+        localStorage.setItem('user', JSON.stringify(user));
+    }
+    else if((signature_validation > 1) && (signature_validation < 40)){
+        alert('Votre signature semble un peu petite, merci de bien vouloir signer.');
+    }
+    else{
+        alert('Une signature est nécessaire pour pouvoir réserver');
+    }
 }
 
 clearBtn.onclick = function () {
+    signature_validation = 0;
     clear_canvas();
 }
+
+
 /*
 
 CANVAS
@@ -55,6 +66,7 @@ let color = "#000";
 let painting = false;
 let started = false;
 let width_brush = 2;
+let signature_validation = 0;
 let canvas = document.querySelector('#signature-pad');
 let cursorX, cursorY;
 let context = canvas.getContext('2d');
@@ -118,6 +130,7 @@ function drawLine() {
         context.strokeStyle = color;
         context.lineWidth = width_brush;
         context.stroke();
+        signature_validation += 1;
     }
 }
 
@@ -126,4 +139,5 @@ function clear_canvas() {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     context.beginPath();
     context.restore();
+    user.signature = null;
 }

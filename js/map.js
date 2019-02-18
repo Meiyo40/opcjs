@@ -69,7 +69,12 @@ function setStation(Alldata) {
                 document.getElementById('address').placeholder = Alldata[i].address;
                 document.getElementById('place').placeholder = Alldata[i].bike_stands;
                 if((tempUser.timer[1] > 0 )&& (tempUser.timer[0]) > 0){
-                    document.getElementById('velo').placeholder = (Alldata[i].available_bikes-1) + ' (1 Resa)';
+                    if(Alldata[i].available_bikes > 1){
+                        document.getElementById('velo').placeholder = (Alldata[i].available_bikes-1) + ' (1 Resa)';
+                    }
+                    else{
+                        document.getElementById('velo').placeholder = (Alldata[i].available_bikes) + ' (1 Resa)';
+                    }
                 }
                 else{
                     document.getElementById('velo').placeholder = Alldata[i].available_bikes;

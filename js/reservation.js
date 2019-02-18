@@ -13,6 +13,7 @@ if(localStorage.getItem('user')){
     let reservName = document.getElementById('reservationName');
     let reservFirstName = document.getElementById('reservationFirstName');
     
+    signature_validation = tempUser.signatureValidation;
     reservName.value = tempUser.name;
     reservFirstName.value = tempUser.firstname;
     userInfo();
@@ -27,6 +28,18 @@ var startTimer = false;
 if(typeof user != "undefined"){
     minute = user.timer[0];
     seconde = user.timer[1];
+    
+    canvasForm.setAttribute('style', 'display: block');
+    reserveBtn.setAttribute('style', 'display: none');
+    formPad.setAttribute('style', 'height: auto');
+    
+    if(user.signature != null){
+        let img = new Image;
+        img.src = user.signature;
+        img.onload = function (){
+            context.drawImage(img, 0, 0);
+        };
+    }
 }
 
 //Si un utilisateur existe (donc la reservation existe) et si la reservation est plus vielle que 20min, alors on reset!
@@ -46,6 +59,7 @@ function resetStorage(){
     //On reset tout !
     sessionStorage.removeItem('signature');
     clearInterval(timer);
+    
     alert('Votre réservation n\'est plus valable !');
     min = 20;
     seconde = 0;
@@ -105,8 +119,8 @@ function User(name, firstname, date, station, signature, remainingTime = [basicT
     this.dateReservation = date;
     this.station = station;
     this.signature = signature;
-    this.saveState = true;
     this.timer = remainingTime;
+    this.signatureValidation = signature_validation;
     
     this.saveData = function (){
         localStorage.setItem('user', JSON.stringify(user));
@@ -126,6 +140,6 @@ function User(name, firstname, date, station, signature, remainingTime = [basicT
         min = 20;
         seconde = 0;
         start = false;
-        
+        signature_validation = 0;
     }
 }
