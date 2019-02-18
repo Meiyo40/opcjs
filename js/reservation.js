@@ -18,6 +18,7 @@ if(localStorage.getItem('user')){
     userInfo();
 }
 
+const basicTimer = 20;
 var timer;
 let minute;
 let seconde;
@@ -51,15 +52,14 @@ function resetStorage(){
     start = false;
 }
 
-function start(){
+function startInterval(){
     timer = setInterval(timerDraw, 1000);
 }
 
 function timerDraw(){
     //user.timer[0] = minute / timer[1] = seconde
-    console.log(Date.now());
     if((user.timer[0] == 0)&&(user.timer[1] == 0)){
-        resetStorage();   
+        user.resetReservation();   
     }
     
     else if((user.timer[0] >= 0)&&(user.timer[1] >= -1)){
@@ -94,25 +94,19 @@ function userInfo(min, scd){
     if (!startTimer){
         startTimer = true;
         clearInterval(timer);
-        start();
+        startInterval();
     }
 }
 
 //USER OBJECT
-function User(name, firstname, date, station, signature, remainingTime = [20, 00]){
+function User(name, firstname, date, station, signature, remainingTime = [basicTimer, 00]){
     this.name = name;
     this.firstname = firstname;
     this.dateReservation = date;
     this.station = station;
     this.signature = signature;
     this.saveState = true;
-    this.availability = 20*60*1000;
     this.timer = remainingTime;
-    
-    this.remainingTime = function (){
-        let time = this.dateReservation.getTime() / 1000;
-        let expiration = this.dateReservation.getTime() + this.availability;
-    }
     
     this.saveData = function (){
         localStorage.setItem('user', JSON.stringify(user));
@@ -124,6 +118,7 @@ function User(name, firstname, date, station, signature, remainingTime = [20, 00
         message.setAttribute('style', 'display: block');
         oldMessage.setAttribute('style', 'display: none');
         
+        this.timer = [basicTimer, 00];
         this.dateReservation = null;
         sessionStorage.removeItem('signature');
         clearInterval(timer);
