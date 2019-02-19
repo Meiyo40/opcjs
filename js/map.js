@@ -48,7 +48,7 @@ function Station(data) {
         marker.bindPopup('<strong>Station:</strong><br>' + this.name).openPopup();
         marker.on('click', function(){
             console.log(data.name);
-            document.getElementById('name').placeholder = data.name;
+            document.getElementById('nameStation').placeholder = data.name;
             document.getElementById('address').placeholder = data.address;
             document.getElementById('velo').placeholder = data.available_bikes;
             document.getElementById('place').placeholder = data.bike_stands;

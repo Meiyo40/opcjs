@@ -31,11 +31,11 @@ cancelBtn.onclick = function () {
 saveBtn.onclick = function () {
     
     if(signature_validation >= 40){
-        let userName = document.getElementById('reservationName');
-        let userFirstName = document.getElementById('reservationFirstName');
+        let userName = document.getElementById('name');
+        let userFirstName = document.getElementById('firstname');
         let img = document.getElementById('signature-pad');
         let urlIMG = img.toDataURL();
-        let resaStation = document.getElementById('name').placeholder;
+        let resaStation = document.getElementById('nameStation').placeholder;
 
         user = new User(userName.value, userFirstName.value, new Date(), resaStation, urlIMG);
 

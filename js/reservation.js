@@ -10,8 +10,8 @@ if(localStorage.getItem('user')){
                     tempUser.timer
                    );
     user.reset = tempUser.reset;
-    let reservName = document.getElementById('reservationName');
-    let reservFirstName = document.getElementById('reservationFirstName');
+    let reservName = document.getElementById('name');
+    let reservFirstName = document.getElementById('firstname');
     
     signature_validation = tempUser.signatureValidation;
     reservName.value = tempUser.name;
