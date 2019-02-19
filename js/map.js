@@ -65,7 +65,7 @@ function setStation(Alldata) {
         if(localStorage.getItem('user')){
             let tempUser = JSON.parse(localStorage.getItem('user'));
             if(Alldata[i].name == user.station){
-                document.getElementById('name').placeholder = Alldata[i].name;
+                document.getElementById('nameStation').placeholder = Alldata[i].name;
                 document.getElementById('address').placeholder = Alldata[i].address;
                 document.getElementById('place').placeholder = Alldata[i].bike_stands;
                 if((tempUser.timer[1] > 0 )&& (tempUser.timer[0]) > 0){
