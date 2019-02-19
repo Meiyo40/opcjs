@@ -1,7 +1,7 @@
 "use strict";
 
 let slides = ['assets/diapo/diapo1.png','assets/diapo/diapo2.png','assets/diapo/diapo3.png'];
-let descriptions = ["<strong>Tutoriel etape 1:</strong> Choisissez une des station disponible",
+let descriptions = ["<strong>Tutoriel etape 1:</strong> Choisissez une des stations disponible",
                     "<strong>Tutoriel etape 2:</strong> Saisissez votre nom et votre prenom, puis cliquez sur 'Reserver'.",
                     "<strong>Tutoriel etape 3:</strong> Signez le formulaire, si tout est en ordre, vous verrez une fenetre confirmant la validation apparaître, attention, la réservation n'est valable que 20 min."];
 let slider = new Slider(slides ,descriptions);
