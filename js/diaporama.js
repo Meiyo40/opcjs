@@ -68,7 +68,6 @@ function Carousel(active = true, position = 0){
                 }, 5000);
             }
             else{
-                console.log('Adding: ' + pos);
                 pos+=4;
                 carousel.style.marginLeft = pos + 'px';
             }
