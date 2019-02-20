@@ -5,7 +5,7 @@ html{
 body {
     padding-top: 1rem;
     padding-bottom: 1rem;
-    background: linear-gradient(white, black);
+    background: linear-gradient(white, #008000);
     background-repeat: no-repeat;
     background-size: cover;
     overflow-x: hidden;
@@ -17,6 +17,18 @@ h1{
 h2,
 p{
     text-align: center;
+}
+#user-information > h3{
+    font-size: 1.2rem;
+    text-decoration: underline;
+}
+.title{
+    background: #fff;
+    margin: 0 auto;
+    width: 20%;
+    border-radius: 10px;
+    padding-bottom: 6px;
+    margin-bottom: 20px;
 }
 #logo-container{
     display: flex;
@@ -246,7 +258,7 @@ SECTION USER INFO RESERVATION
 #user-information{
     display: none;
     margin: 30px auto;
-    width: 400px;
+    width: 450px;
     text-align: center;
     color: #fff;
     border: solid 3px silver;
