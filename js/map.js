@@ -49,9 +49,9 @@ function Station(data) {
         marker.on('click', function(){
             console.log(data.name);
             document.getElementById('nameStation').placeholder = data.name;
-            document.getElementById('address').placeholder = data.address;
-            document.getElementById('velo').placeholder = data.available_bikes;
-            document.getElementById('place').placeholder = data.bike_stands;
+            document.getElementById('address').placeholder     = data.address;
+            document.getElementById('velo').placeholder        = data.available_bikes;
+            document.getElementById('place').placeholder       = data.bike_stands;
         })
     }
 }
@@ -66,9 +66,9 @@ function setStation(Alldata) {
             let tempUser = JSON.parse(localStorage.getItem('user'));
             if(Alldata[i].name == tempUser.station){
                 document.getElementById('nameStation').placeholder = Alldata[i].name;
-                document.getElementById('address').placeholder = Alldata[i].address;
-                document.getElementById('place').placeholder = Alldata[i].bike_stands;
-                if((tempUser.timer[1] > 0 )&& (tempUser.timer[0]) > 0){
+                document.getElementById('address').placeholder     = Alldata[i].address;
+                document.getElementById('place').placeholder       = Alldata[i].bike_stands;
+                if((tempUser.timer[1] > 0 )&& (tempUser.timer[0] > 0)){
                     if(Alldata[i].available_bikes > 1){
                         document.getElementById('velo').placeholder = (Alldata[i].available_bikes-1) + ' (1 Resa)';
                     }
@@ -94,8 +94,3 @@ newMap.initMap();
 function onMapClick(e) {
     alert("You clicked the map at " + e.latlng);
 }
-
-//newMap.myMap.on('click', onMapClick);
-
-
-//END JQUERY FUNCTION

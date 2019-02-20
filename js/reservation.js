@@ -185,11 +185,11 @@ function User(name, firstname, date, station, signature, remainingTime = [basicT
         this.dateReservation = null;
         sessionStorage.removeItem('signature');
         clearInterval(timer);
-        alert('Votre réservation n\'est plus valable !');
         min = basicTimer;
         seconde = 0;
         start = false;
         signature_validation = 0;
         clear_canvas();
+        alert('Votre réservation n\'est plus valable !');
     }
 }
