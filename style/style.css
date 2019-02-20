@@ -5,7 +5,7 @@ html{
 body {
     padding-top: 1rem;
     padding-bottom: 1rem;
-    background: #bbddbb;
+    
     background-repeat: no-repeat;
     background-size: cover;
     overflow-x: hidden;
@@ -45,7 +45,9 @@ DIAPORAMA
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-bottom: 50px;
+}
+#diaporama > .title {
+    width: 50%;
 }
 #diaporama > button{
     height: 30px;
@@ -60,21 +62,22 @@ figure{
     position: absolute;
     width: 100%;
 }
-#carousel-control{
-    margin: 0 auto;
-}
 #description{
     padding: 5px;
     text-align: center;
     font-size: 1.5rem;
-    border: 3px solid #B3D360; 
+    border: 3px solid #c3c0bb; 
 }
 #slide{
     width: 100%;
 }
-#slide,
+#slide{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
 #description{
-    border-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 .diapo.animate{
     animation-name: fadeIn;
@@ -127,6 +130,7 @@ figure{
     margin-right: -5px;
     color: #079fbb;
     background-color: #fff;
+    box-shadow: inset 0px 0px 0px 1px #079fbb;
 }
 #previous{
     color: white;
@@ -134,7 +138,10 @@ figure{
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }
-
+#carousel-control{
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
 /*
 
 MAIN SECTION (MAP + FORM)
@@ -145,7 +152,10 @@ MAIN SECTION (MAP + FORM)
     width: 100%;
     padding-left: 30px;
 }
-
+#main{
+    padding: 20px 0;
+    background: #079fbb;
+}
 /*
 
 MAP
@@ -301,6 +311,10 @@ SECTION USER INFO RESERVATION
 
 
 */
+#reservation-info{
+    background: #fff;
+    padding: 20px 0;
+}
 /* BTN HEAD */
 #userAccess{
     height: auto !important;
@@ -320,10 +334,9 @@ SECTION USER INFO RESERVATION
     margin: 30px auto;
     width: 450px;
     text-align: center;
-    color: #fff;
     border: solid 3px silver;
     border-radius: 30px;
-    background: grey;
+    background: #bbddbb;
 }
 #user-information > p{
     margin: 0;
