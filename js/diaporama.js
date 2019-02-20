@@ -9,7 +9,7 @@ let descriptions = ["<strong>Tutoriel étape 1/3:</strong> Choisissez une des st
                     "<strong>Tutoriel étape 3/3:</strong> Signez le formulaire, si tout est en ordre, vous verrez une fenetre confirmant la réservation apparaître, attention, la réservation n'est valable que 20 min.",
                    "<strong>Profitez maintenant de votre réservation !</strong>"];
 let slider = new Slider(slides ,descriptions);
-
+let moving = false;
 let timerAnimation;
 let autoTimer = setInterval(Carousel, 5000);
 Carousel();
@@ -22,25 +22,37 @@ function Slider (slides, descriptions){
 }
 
 function add(){
-    if(slider.currentSlide < (slider.slides.length-1)){
-        slider.currentSlide++;
+    if(!moving){
+        if(slider.currentSlide < (slider.slides.length-1)){
+            slider.currentSlide++;
+        }
+        else{
+            slider.currentSlide = 0;
+        }
+        clearInterval(autoTimer);
+        Carousel(false);
+        autoTimer = setInterval(Carousel, 5000);
     }
     else{
-        slider.currentSlide = 0;
+        Carousel(false, 0, 'next');
     }
-    clearInterval(autoTimer);
-    Carousel(false);
 }
 
 function less(){
-    if(slider.currentSlide > 0){
-        slider.currentSlide--;
+    if(!moving){
+        if(slider.currentSlide > 0){
+            slider.currentSlide--;
+        }
+        else{
+            slider.currentSlide = slider.slides.length-1;
+        }
+        clearInterval(autoTimer);
+        Carousel(false);
+        autoTimer = setInterval(Carousel, 5000);
     }
     else{
-        slider.currentSlide = slider.slides.length-1;
+        Carousel(false, 0, 'previous');
     }
-    clearInterval(autoTimer);
-    Carousel(false);
 }
 
 function pause(){
@@ -53,7 +65,7 @@ function pause(){
 }
 
 
-function Carousel(active = true, position = 0){
+function Carousel(active = true, position = 0, immediate = null){
     let slide = document.getElementById('slide');
     let carouselContainer = document.getElementById('carousel');
     let figure = document.getElementById('slide_container');
@@ -87,6 +99,7 @@ function Carousel(active = true, position = 0){
                 Carousel();
             }
             else if(pos == 0){
+                moving = false;
                 clearInterval(timerAnimation);
                 autoTimer = setInterval(function(){
                     Carousel(1, 1);
@@ -95,11 +108,37 @@ function Carousel(active = true, position = 0){
             else{
                 pos+=4;
                 figure.style.left = pos + 'px';
+                moving = true;
             }
         }
     }
     else{
-        autoTimer = setInterval(Carousel, 5000);
+        if(immediate == 'next'){
+            clearInterval(timerAnimation);
+            slider.currentSlide++;
+            
+            if(slider.currentSlide > (slider.slides.length - 1)){
+                slider.currentSlide = 0;
+            }
+            
+            figure.style.left = 0;
+            moving = false;
+            Carousel();
+        }
+        else if (immediate == 'previous'){
+            clearInterval(timerAnimation);
+                        
+            if(slider.currentSlide > 0){
+                slider.currentSlide--;
+            }
+            else{
+                slider.currentSlide == slider.slides.length-1;
+            }
+            
+            figure.style.left = 0;
+            moving = false;
+            Carousel();
+        }
     }
 }
 
