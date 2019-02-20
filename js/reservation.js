@@ -139,8 +139,9 @@ function userInfo(min, scd){
         let stamp = (user.timer[0]*60) + user.timer[1];
         let timelineCursor = document.getElementById('timeline-cursor');
         
-        stamp = Math.round((stamp/1200)*100);
+        stamp = Number.parseFloat((stamp/1200)*100).toFixed(2);
         let cursorPos = (99-stamp) + '%';
+        console.log(cursorPos);
         timelineCursor.style.left = cursorPos;
     }
     
