@@ -141,7 +141,6 @@ function userInfo(min, scd){
         
         stamp = Number.parseFloat((stamp/1200)*100).toFixed(2);
         let cursorPos = (99-stamp) + '%';
-        console.log(cursorPos);
         timelineCursor.style.left = cursorPos;
     }
     

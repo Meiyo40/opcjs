@@ -93,7 +93,47 @@ figure{
 #slide3{
     display: none;
 }
+#next,
+#pause,
+#previous{
+    border: 0;
+    padding: 10px;
+    font-family: "Aria", sans-serif;
+    width: 130px;
+}
+#next:hover,
+#pause:hover,
+#previous:hover{
+    animation-name: btnHover;
+    animation-duration: 0.8s;
+}
+@keyframes btnHover{
+    0%{
+        border: 0; 
+    }
+    100%{
+        border: 2px solid grey;
+    }
+}
 
+#next{
+    color: white;
+    background-color: #079fbb;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+#pause{
+    margin-left: -5px;
+    margin-right: -5px;
+    color: #079fbb;
+    background-color: #fff;
+}
+#previous{
+    color: white;
+    background-color: #079fbb;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
 
 /*
 

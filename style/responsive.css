@@ -18,3 +18,18 @@
     }
     
 }
+@media screen and (max-width: 768px){
+    .title{
+        width: 50%;
+    }
+}
+@media screen and (max-width: 400px){
+    #next,
+    #pause,
+    #previous{
+        width: 100px;
+    }
+    .fas{
+        display: none;
+    }
+}

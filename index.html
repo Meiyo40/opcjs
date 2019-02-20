@@ -50,9 +50,9 @@
             </figure>
         </div>
         <div id="carousel-control">
-            <button class="fas fa-arrow-circle-left" onclick="less()"> Précédant</button>
-            <button class="fas fa-pause-circle" onclick="pause()"> Pause</button>
-            <button class="fas" onclick="add()"> Suivant <i class="fas fa-arrow-circle-right"></i></button>
+            <button id="previous" onclick="less()"><i class="fas fa-arrow-circle-left"></i> Précédant</button>
+            <button id="pause" onclick="pause()"><i class="fas fa-pause-circle"></i> Pause</button>
+            <button id="next" onclick="add()"> Suivant <i class="fas fa-arrow-circle-right"></i></button>
         </div>
         
         
@@ -138,6 +138,7 @@
     <script src="js/diaporama.js"></script>
     <script src="js/signature.js"></script>
     <script src="js/map.js"></script>
+    <script src="js/cluster/leaflet.markercluster.js"></script>
     <script src="js/ajax.js"></script>
     <script src="js/reservation.js"></script>
     
