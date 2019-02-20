@@ -49,8 +49,14 @@ p{
     height: 30px;
 }
 #carousel{
-    max-width: 1000px;
+    position: relative;
+    width: 90%;
+
     margin: 0 auto;
+}
+figure{
+    position: absolute;
+    width: 100%;
 }
 #carousel-control{
     margin: 0 auto;
@@ -63,18 +69,17 @@ p{
 }
 #slide{
     width: 100%;
-    opacity: 0;
 }
 #slide,
 #description{
     border-radius: 20px;
 }
-.animate{
-    animation-name: test;
+.diapo.animate{
+    animation-name: fadeIn;
     animation-duration: 1s;
     animation-fill-mode: forwards;
 }
-@keyframes test{
+@keyframes fadeIn{
     0% {opacity: 0;}
     100% {opacity: 1;}
 }
