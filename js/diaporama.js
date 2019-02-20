@@ -1,9 +1,9 @@
 "use strict";
 
-let slides = ['assets/diapo/diapo1.png',
-              'assets/diapo/diapo2.png',
-              'assets/diapo/diapo3.png', 
-              'assets/diapo/diapo4.png'];
+let slides = ['assets/diapo/diapo1.jpg',
+              'assets/diapo/diapo2.jpg',
+              'assets/diapo/diapo3.jpg', 
+              'assets/diapo/diapo4.jpg'];
 let descriptions = ["<strong>Tutoriel étape 1/3:</strong> Choisissez une des stations disponible",
                     "<strong>Tutoriel étape 2/3:</strong> Saisissez votre <strong>Nom</strong> et votre <strong>Prénom</strong>, puis cliquez sur 'Réservation'.",
                     "<strong>Tutoriel étape 3/3:</strong> Signez le formulaire, si tout est en ordre, vous verrez une fenetre confirmant la réservation apparaître, attention, la réservation n'est valable que 20 min.",
