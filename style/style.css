@@ -67,7 +67,8 @@ figure{
     padding: 5px;
     text-align: center;
     font-size: 1.5rem;
-    border: 3px solid #c3c0bb; 
+    border: 3px solid #079fbb; 
+    color: #079fbb;
 }
 #slide{
     width: 100%;
@@ -363,7 +364,7 @@ SECTION USER INFO RESERVATION
     position: relative;
     width: 95%;
     height: 10px;
-    background: linear-gradient(to right, rgb(0,150,0), rgb(150,0,0));
+    background: linear-gradient(to right, rgb(0,150,0),rgb(0,130,0),rgb(0,110,0), rgb(150,0,0));
     padding-bottom: 10px;
     margin: 0 auto;
 }
