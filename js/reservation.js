@@ -1,5 +1,11 @@
 //STORAGE SYSTEM
 //Si on a deja un utilisateur qui a été enregistré, on recupere tout et on recrée l'objet.
+const basicTimer = 20;
+var timer;
+let minute;
+let seconde;
+var startTimer = false;
+
 if(localStorage.getItem('user')){
     let tempUser = JSON.parse(localStorage.getItem('user'));
     user = new User(tempUser.name, 
@@ -19,11 +25,7 @@ if(localStorage.getItem('user')){
     userInfo();
 }
 
-const basicTimer = 20;
-var timer;
-let minute;
-let seconde;
-var startTimer = false;
+
 
 if(typeof user != "undefined"){
     minute = user.timer[0];
@@ -49,7 +51,7 @@ if(typeof user != "undefined"){
         let limitTimer = 20*60*1000; //20min
         let now = Date.now();
         if((now - userTS) > limitTimer){
-            resetStorage();
+            user.resetReservation();
             user.dateReservation = null;
             user.saveData();
         }
@@ -60,18 +62,6 @@ if(typeof user != "undefined"){
         message.setAttribute('style', 'display: block');
         oldMessage.setAttribute('style', 'display: none');
     }
-}
-
-
-function resetStorage(){
-    //On reset tout !
-    sessionStorage.removeItem('signature');
-    clearInterval(timer);
-    
-    alert('Votre réservation n\'est plus valable !');
-    min = 20;
-    seconde = 0;
-    start = false;
 }
 
 function startInterval(){
@@ -108,16 +98,61 @@ function userInfo(min, scd){
     let minuteUI = document.getElementById('minute');
     let secondeUI = document.getElementById('seconde');
     
+    
     userUI.setAttribute('style', 'display: block');
+    
+    
     stationUI.textContent = stationName;
     nameUI.textContent = resaName;
     minuteUI.textContent = min;
     secondeUI.textContent = scd;
+    
+    //Cette fonction gere l'affichage du  bouton d'information et d'acces rapide en haut de page
+    function userAccess(){
+        let userAccess = document.getElementById('userAccess');
+        let minAccess = document.getElementById('minAccess');
+        let scdAccess = document.getElementById('scdAccess');
+        
+        
+        minAccess.textContent = min;
+        scdAccess.textContent = scd;
+        
+        
+        if(user.dateReservation != null){
+            if(user.timer[0] >= 10){
+                userAccess.setAttribute('style', 'background-color: green; display: block');
+            }
+            else if((user.timer[0] < 10) && (user.timer[0] > 3)){
+                userAccess.setAttribute('style', 'background-color: orange; display: block');
+            }
+            else{
+                userAccess.setAttribute('style', 'background-color: red; display: block;');
+            }
+        
+        }
+        
+    }
+    //Cette fonction gère l'affichage du curseur sur la timeline
+    function timeline(){
+        const max = 1200;
+        //On recupere les secondes du timer user
+        let stamp = (user.timer[0]*60) + user.timer[1];
+        let timelineCursor = document.getElementById('timeline-cursor');
+        
+        stamp = Math.round((stamp/1200)*100);
+        let cursorPos = (99-stamp) + '%';
+        timelineCursor.style.left = cursorPos;
+    }
+    
     if (!startTimer){
         startTimer = true;
         clearInterval(timer);
         startInterval();
     }
+    
+    userAccess();
+    timeline();
+    
 }
 
 //USER OBJECT
@@ -138,6 +173,8 @@ function User(name, firstname, date, station, signature, remainingTime = [basicT
         this.reset = true;
         message.setAttribute('style', 'display: block');
         oldMessage.setAttribute('style', 'display: none');
+        let userAccess = document.getElementById('userAccess');
+        userAccess.setAttribute('style', 'display: none');
         
         this.timer = [basicTimer, 00];
         this.dateReservation = null;

@@ -20,9 +20,6 @@ function Slider (slides, descriptions){
     this.descriptions = descriptions;
     this.currentSlide = 0;
 }
-let test = setInterval(function(){
-    console.log (document.getElementById('slide').getAttribute('opacity'));
-}, 100);
 
 function add(){
     if(slider.currentSlide < (slider.slides.length-1)){

@@ -57,6 +57,7 @@ saveBtn.onclick = function () {
 
 clearBtn.onclick = function () {
     signature_validation = 0;
+    user.resetReservation();
     clear_canvas();
 }
 
