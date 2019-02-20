@@ -28,7 +28,8 @@ function add(){
     else{
         slider.currentSlide = 0;
     }
-    Carousel();
+    clearInterval(autoTimer);
+    Carousel(false);
 }
 
 function less(){
@@ -38,7 +39,8 @@ function less(){
     else{
         slider.currentSlide = slider.slides.length-1;
     }
-    Carousel();
+    clearInterval(autoTimer);
+    Carousel(false);
 }
 
 function pause(){
@@ -96,7 +98,8 @@ function Carousel(active = true, position = 0){
             }
         }
     }
-    else{     
+    else{
+        autoTimer = setInterval(Carousel, 5000);
     }
 }
 
