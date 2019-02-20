@@ -1,9 +1,15 @@
 "use strict";
 
-let slides = ['assets/diapo/diapo1.png','assets/diapo/diapo2.png','assets/diapo/diapo3.png'];
-let descriptions = ["<strong>Tutoriel etape 1:</strong> Choisissez une des stations disponible",
-                    "<strong>Tutoriel etape 2:</strong> Saisissez votre nom et votre prenom, puis cliquez sur 'Reservation'.",
-                    "<strong>Tutoriel etape 3:</strong> Signez le formulaire, si tout est en ordre, vous verrez une fenetre confirmant la validation apparaître, attention, la réservation n'est valable que 20 min."];
+let slides = ['assets/diapo/etapes.png',
+              'assets/diapo/diapo1.png',
+              'assets/diapo/diapo2.png',
+              'assets/diapo/diapo3.png', 
+              'assets/diapo/diapo4.png'];
+let descriptions = ["Suivez rapidement quelques étapes pour réserver votre velib",
+                    "<strong>Tutoriel etape 1:</strong> Choisissez une des stations disponible",
+                    "<strong>Tutoriel etape 2:</strong> Saisissez votre <strong>Nom</strong> et votre <strong>Prénom</strong>, puis cliquez sur 'Réservation'.",
+                    "<strong>Tutoriel étape 3:</strong> Signez le formulaire, si tout est en ordre, vous verrez une fenetre confirmant la réservation apparaître, attention, la réservation n'est valable que 20 min.",
+                   "<strong>Profitez maintenant de votre réservation !</strong>"];
 let slider = new Slider(slides ,descriptions);
 
 let timerAnimation;
