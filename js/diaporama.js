@@ -41,6 +41,15 @@ function less(){
     Carousel();
 }
 
+function pause(){
+    clearInterval(autoTimer);
+    clearInterval(timerAnimation);
+    Carousel(false);
+    var simpleTimer = setTimeout(function(){
+        autoTimer = setInterval(Carousel, 5000);
+    }, 20000);
+}
+
 
 function Carousel(active = true, position = 0){
     let slide = document.getElementById('slide');
@@ -91,11 +100,3 @@ function Carousel(active = true, position = 0){
     }
 }
 
-function pause(){
-    clearInterval(autoTimer);
-    clearInterval(timerAnimation);
-    Carousel(false);
-    var simpleTimer = setTimeout(function(){
-        autoTimer = setInterval(Carousel, 5000);
-    }, 20000);
-}

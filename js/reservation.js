@@ -110,6 +110,7 @@ function userInfo(min, scd){
     //Cette fonction gere l'affichage du  bouton d'information et d'acces rapide en haut de page
     function userAccess(){
         let userAccess = document.getElementById('userAccess');
+        let userAccessBtn = document.getElementById('userAccessBtn');
         let minAccess = document.getElementById('minAccess');
         let scdAccess = document.getElementById('scdAccess');
         
@@ -122,7 +123,11 @@ function userInfo(min, scd){
             if(user.timer[0] >= 10){
                 userAccess.setAttribute('style', 'background-color: green; display: block');
             }
-            else if((user.timer[0] < 10) && (user.timer[0] > 3)){
+            else if((user.timer[0] < 12) && (user.timer[0] >=7)){
+                userAccess.setAttribute('style', 'background-color: yellow; display: block');
+                userAccessBtn.setAttribute('style', 'color: black;');
+            }
+            else if((user.timer[0] < 7)&&(user.timer[0] > 3)){
                 userAccess.setAttribute('style', 'background-color: orange; display: block');
             }
             else{
