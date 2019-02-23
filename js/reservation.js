@@ -105,7 +105,12 @@ function userInfo(min, scd){
     stationUI.textContent = stationName;
     nameUI.textContent = resaName;
     minuteUI.textContent = min;
-    secondeUI.textContent = scd;
+    if(scd < 10){
+        secondeUI.textContent = "0" + scd;
+    }
+    else{
+        secondeUI.textContent = scd;
+    }
     
     //Cette fonction gere l'affichage du  bouton d'information et d'acces rapide en haut de page
     function userAccess(){
@@ -116,7 +121,12 @@ function userInfo(min, scd){
         
         
         minAccess.textContent = min;
-        scdAccess.textContent = scd;
+        if(scd < 10){
+            scdAccess.textContent = "0" + scd;
+        }
+        else{
+            scdAccess.textContent = scd;
+        }
         
         
         if(user.dateReservation != null){
