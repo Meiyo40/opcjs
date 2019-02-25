@@ -34,6 +34,15 @@ p{
     width: 200px;
     height: 170px;
 }
+
+#translate{
+    position:absolute;
+    right: 10px;
+}
+#translate > button:hover{
+    border: 2px solid yellow;
+}
+
 /*
 
 

@@ -22,7 +22,27 @@
     .title{
         width: 50%;
     }
+    #mapid{
+        height: 500px;
+    }
 }
+
+@media screen and (max-width: 480px){
+    #user-information{
+        width: 100%;
+    }
+    #user-information > h3{
+        margin-top: 8px;
+        width: 95%;
+    }
+    .fas.fa-bicycle{
+        display: block;
+    }
+    #mapid{
+        height: 400px;
+    }
+}
+
 @media screen and (max-width: 400px){
     #next,
     #pause,
@@ -31,5 +51,9 @@
     }
     .fas{
         display: none;
+    }
+    
+    #main > div{
+        padding: 0;
     }
 }

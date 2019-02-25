@@ -11,16 +11,110 @@ let descriptions = ["<strong>Tutoriel étape 1/3:</strong> Choisissez une des st
 let slider = new Slider(slides ,descriptions);
 let moving = false;
 let timerAnimation;
-let autoTimer = setInterval(Carousel, 5000);
-Carousel();
+let autoTimer = isMobile() ? null : setInterval(Slider.sliderControl, 5000);
+slider.sliderControl();
 
 //NEW VERSION
 function Slider (slides, descriptions){
     this.slides = slides;
     this.descriptions = descriptions;
     this.currentSlide = 0;
+    
+    this.sliderControl = function (active = true, position = 0, immediate = null){
+        let slide = document.getElementById('slide');
+        let carouselContainer = document.getElementById('carousel');
+        let figure = document.getElementById('slide_container');
+        let slideWindow = document.getElementById('diaporama');
+        let description = document.getElementById('description');
+        let width = slideWindow.offsetWidth;
+        let pos = position;
+        slide.src = slider.slides[slider.currentSlide];
+        figure.style.left = '0';
+        slide.classList.add('animate');
+        description.innerHTML = slider.descriptions[slider.currentSlide];
+        slide.style.marginLeft = pos;
+        clearInterval(autoTimer);
+
+        //ADAPT CONTAINER SIZE TO FIGURE SIZE
+        let height = figure.offsetHeight;
+        carouselContainer.style.height = height + 30 + 'px';
+
+
+
+        if(!isMobile()){
+            if(active){
+                timerAnimation = setInterval(moveRight, 5);
+                function moveRight(){
+                    if(pos > slideWindow.offsetWidth){
+                        clearInterval(timerAnimation);
+                        slider.currentSlide++;
+                        if(slider.currentSlide > (slider.slides.length - 1)){
+                            slider.currentSlide = 0;
+                        }
+                        slide.classList.remove('animate');
+                        slider.sliderControl();
+                    }
+                    else if(pos == 0){
+                        moving = false;
+                        clearInterval(timerAnimation);
+                        initTimer();
+                    }
+                    else{
+                        pos+=4;
+                        figure.style.left = pos + 'px';
+                        moving = true;
+                    }
+                }
+            }
+            else{
+                if(immediate == 'next'){
+                    clearInterval(timerAnimation);
+                    slider.currentSlide++;
+
+                    if(slider.currentSlide > (slider.slides.length - 1)){
+                        slider.currentSlide = 0;
+                    }
+
+                    figure.style.left = 0;
+                    moving = false;
+                    slider.sliderControl();
+                }
+                else if (immediate == 'previous'){
+                    clearInterval(timerAnimation);
+                    slider.currentSlide--;
+                    if(slider.currentSlide < 0){
+                        slider.currentSlide = slider.slides.length-1;
+                    }
+
+                    figure.style.left = 0;
+                    moving = false;
+                    slider.sliderControl();
+
+                }
+            }
+        }
+    }
+//endObject
 }
 
+//If the media is too small we saw a mobile and disable the auto slide
+function isMobile(){
+    if(document.documentElement.clientWidth < 480){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function initTimer(){
+    autoTimer = setInterval(function(){
+        slider.sliderControl(1,1);
+    }, 5000);
+}
+
+
+//GOTO the next slide
 function add(){
     if(!moving){
         if(slider.currentSlide < (slider.slides.length-1)){
@@ -30,14 +124,15 @@ function add(){
             slider.currentSlide = 0;
         }
         clearInterval(autoTimer);
-        Carousel(false);
-        autoTimer = setInterval(Carousel, 5000);
+        slider.sliderControl(false);
+        autoTimer = setInterval(slider.sliderControl, 5000);
     }
     else{
-        Carousel(false, 0, 'next');
+        slider.sliderControl(false, 0, 'next');
     }
 }
 
+//GOTO the previous slide
 function less(){
     if(!moving){
         if(slider.currentSlide > 0){
@@ -47,98 +142,21 @@ function less(){
             slider.currentSlide = slider.slides.length-1;
         }
         clearInterval(autoTimer);
-        Carousel(false);
-        autoTimer = setInterval(Carousel, 5000);
+        slider.sliderControl(false);
+        autoTimer = setInterval(slider.sliderControl, 5000);
     }
     else{
-        Carousel(false, 0, 'previous');
+        slider.sliderControl(false, 0, 'previous');
     }
 }
 
+//PAUSE slider for 25sec
 function pause(){
     clearInterval(autoTimer);
     clearInterval(timerAnimation);
-    Carousel(false);
+    slider.sliderControl(false);
     var simpleTimer = setTimeout(function(){
-        autoTimer = setInterval(Carousel, 5000);
+        autoTimer = setInterval(Slider.sliderControl, 5000);
     }, 20000);
-}
-
-
-function Carousel(active = true, position = 0, immediate = null){
-    let slide = document.getElementById('slide');
-    let carouselContainer = document.getElementById('carousel');
-    let figure = document.getElementById('slide_container');
-    let slideWindow = document.getElementById('diaporama');
-    let description = document.getElementById('description');
-    let width = slideWindow.offsetWidth;
-    let pos = position;
-    slide.src = slider.slides[slider.currentSlide];
-    figure.style.left = '0';
-    slide.classList.add('animate');
-    description.innerHTML = slider.descriptions[slider.currentSlide];
-    slide.style.marginLeft = pos;
-    clearInterval(autoTimer);
-    
-    //ADAPT CONTAINER SIZE TO FIGURE SIZE
-    let height = figure.offsetHeight;
-    carouselContainer.style.height = height + 30 + 'px';
-    
- 
-    
-    if(active){
-        timerAnimation = setInterval(moveRight, 5);
-        function moveRight(){
-            if(pos > slideWindow.offsetWidth){
-                clearInterval(timerAnimation);
-                slider.currentSlide++;
-                if(slider.currentSlide > (slider.slides.length - 1)){
-                    slider.currentSlide = 0;
-                }
-                slide.classList.remove('animate');
-                Carousel();
-            }
-            else if(pos == 0){
-                moving = false;
-                clearInterval(timerAnimation);
-                autoTimer = setInterval(function(){
-                    Carousel(1, 1);
-                }, 5000);
-            }
-            else{
-                pos+=4;
-                figure.style.left = pos + 'px';
-                moving = true;
-            }
-        }
-    }
-    else{
-        if(immediate == 'next'){
-            clearInterval(timerAnimation);
-            slider.currentSlide++;
-            
-            if(slider.currentSlide > (slider.slides.length - 1)){
-                slider.currentSlide = 0;
-            }
-            
-            figure.style.left = 0;
-            moving = false;
-            Carousel();
-        }
-        else if (immediate == 'previous'){
-            clearInterval(timerAnimation);
-                        
-            if(slider.currentSlide > 0){
-                slider.currentSlide--;
-            }
-            else{
-                slider.currentSlide == slider.slides.length-1;
-            }
-            
-            figure.style.left = 0;
-            moving = false;
-            Carousel();
-        }
-    }
 }
 

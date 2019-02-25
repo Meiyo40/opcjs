@@ -88,23 +88,23 @@ canvas.addEventListener("touchend", onmouseup, false);
 document.body.addEventListener("touchcancel", onmouseup, false);
 
 
-canvas.onmousedown = function (e) {
+canvas.addEventListener("mousedown", function (e) {
     // Click souris enfoncé sur le canvas, je dessine :
     painting = true;
     // Coordonnées de la souris :
     cursorX = (e.pageX - this.offsetLeft);
     cursorY = (e.pageY - this.offsetTop);
     paint();
-};
+});
 
 // Relachement du Click arrête de dessiner :
-canvas.onmouseup = function () {
+canvas.addEventListener("mouseup", function () {
     painting = false;
     started = false;
-};
+});
 
 // Mouvement de la souris sur le canvas :
-canvas.onmousemove = function (e) {
+canvas.addEventListener("mousemove", function (e) {
     // Si je suis en train de dessiner (click souris enfoncé) :
     if (painting) {
         // Set Coordonnées de la souris :
@@ -114,7 +114,7 @@ canvas.onmousemove = function (e) {
         // Dessine une ligne :
         drawLine();
     }
-};
+});
 function canvasSaveState(){
     context.save();
 }
@@ -147,3 +147,41 @@ function clear_canvas() {
     context.restore();
     user.signature = null;
 }
+
+
+//MOBILE TOUCH 
+
+canvas.addEventListener('touchstart', function(e){
+    let coord = getTouchPos(canvas, e);
+    cursorX = coord.x;
+    cursorY = coord.y;
+    
+    paint();
+});
+
+canvas.addEventListener("touchend", function (e) {
+  var mouseEvent = new MouseEvent("mouseup", {});
+  canvas.dispatchEvent(mouseEvent);
+});
+
+canvas.addEventListener('touchmove', function(e){
+    let coord = getTouchPos(canvas, e);
+    cursorX = coord.x;
+    cursorY = coord.y;
+    
+    drawLine();
+});
+
+function getTouchPos(canvasDom, touchEvent) {
+  var rect = canvasDom.getBoundingClientRect();
+  return {
+    x: touchEvent.touches[0].clientX - rect.left,
+    y: touchEvent.touches[0].clientY - rect.top
+  };
+}
+
+
+canvas.addEventListener("touchstart",  function(event) {event.preventDefault()})
+canvas.addEventListener("touchmove",   function(event) {event.preventDefault()})
+canvas.addEventListener("touchend",    function(event) {event.preventDefault()})
+canvas.addEventListener("touchcancel", function(event) {event.preventDefault()})
