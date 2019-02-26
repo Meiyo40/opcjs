@@ -1,9 +1,7 @@
 //STORAGE SYSTEM
 //Si on a deja un utilisateur qui a été enregistré, on recupere tout et on recrée l'objet.
-const basicTimer = 20;
+const basicTimer = 19;
 var timer;
-let minute;
-let seconde;
 var startTimer = false;
 
 if(localStorage.getItem('user')){
@@ -15,7 +13,6 @@ if(localStorage.getItem('user')){
                     tempUser.signature,
                     tempUser.timer
                    );
-    user.reset = tempUser.reset;
     
     let reservName = document.getElementById('name');
     let reservFirstName = document.getElementById('firstname');
@@ -28,10 +25,7 @@ if(localStorage.getItem('user')){
 
 
 
-if(typeof user != "undefined"){
-    minute = user.timer[0];
-    seconde = user.timer[1];
-    
+if(typeof user != "undefined"){    
     canvasForm.setAttribute('style', 'display: block');
     reserveBtn.setAttribute('style', 'display: none');
     formPad.setAttribute('style', 'height: auto');
@@ -69,31 +63,9 @@ function startInterval(){
     timer = setInterval(diffHour, 1000);
 }
 
-function timerDraw(){
-    //user.timer[0] = minute / timer[1] = seconde
-    if((user.timer[0] == 0)&&(user.timer[1] == 0)){
-        user.resetReservation();
-    }
-    
-    //use user.signature for check if a registred reservation exist
-    else if((user.timer[0] >= 0)&&(user.timer[1] >= -1) && user.signature){
-        if (user.timer[1] ==  0){
-            user.timer[1] = 59;
-            user.timer[0]--;
-        }
-        else{
-            user.timer[1]--;
-        }
-        userInfo(user.timer[0], user.timer[1]);
-    }
-    user.saveData();//On sauvegarde pour actualiser le timer dans le cache
-}
-
 function userInfo(min, scd){
     let stationName = user.station;
-    //let resaName = localStorage.getItem('savedName') + ' ' + localStorage.getItem('savedFirstName');
     let resaName = user.name + ' ' + user.firstname;
-    
     let stationUI = document.getElementById('stationName');
     let nameUI = document.getElementById('userName');
     let minuteUI = document.getElementById('minute');
@@ -116,11 +88,7 @@ function userInfo(min, scd){
         let userAccess = document.getElementById('userAccess');
         let userAccessBtn = document.getElementById('userAccessBtn');
         let minAccess = document.getElementById('minAccess');
-        let scdAccess = document.getElementById('scdAccess');
-        
-        let estimM = document.getElementById('estimationM');
-        let estimS = document.getElementById('estimationS');
- 
+        let scdAccess = document.getElementById('scdAccess'); 
         
         minAccess.textContent = min;
         if(scd < 10){
@@ -165,13 +133,12 @@ function userInfo(min, scd){
         startInterval();
     }
     
-    userAccess();
     timeline();
-    
+    userAccess();   
 }
 
 //USER OBJECT
-function User(name, firstname, date, station, signature, remainingTime = [basicTimer, 00]){
+function User(name, firstname, date, station, signature, remainingTime = [basicTimer, 60]){
     this.name = name;
     this.firstname = firstname;
     this.dateReservation = date;
@@ -179,7 +146,6 @@ function User(name, firstname, date, station, signature, remainingTime = [basicT
     this.signature = signature;
     this.timer = remainingTime;
     this.signatureValidation = signature_validation;
-    this.reset = false;
     
     this.saveData = function (){
         localStorage.setItem('user', JSON.stringify(user));
@@ -191,7 +157,7 @@ function User(name, firstname, date, station, signature, remainingTime = [basicT
         let userAccess = document.getElementById('userAccess');
         userAccess.setAttribute('style', 'display: none');
         
-        this.timer = [basicTimer, 00];
+        this.timer = [basicTimer, 60];
         this.dateReservation = null;
         sessionStorage.removeItem('signature');
         clearInterval(timer);
@@ -203,11 +169,6 @@ function User(name, firstname, date, station, signature, remainingTime = [basicT
         
         this.saveData();
         alert('Votre réservation n\'est plus valable !');
-    }
-    
-    this.setHour = function(date){
-        date = [date.getUTCMinutes(), date.getUTCSeconds()];
-        return date;
     }
     
     this.timestampRefresh = function (){
@@ -225,22 +186,14 @@ function diffHour(){
         let base = 20*60;
         let timer = base - diff;
         let chrono = [];
-        chrono[0] = Math.ceil(timer/60);
+        chrono[0] = Math.floor(timer/60);
         chrono[1] = timer%60;
-        if(chrono[1] == 0){
-            chrono[0]++;
-        }
-        
+        user.timer = chrono;
+        console.log(chrono);
         userInfo(chrono[0], chrono[1]);
-        user.saveData();
-  
+        user.saveData();  
     }
     else{
         return [0, 0];
     }
-}
-
-function setHour(date){
-    date = [date.getUTCMinutes(), date.getUTCSeconds()];
-    return date;
 }

@@ -39,7 +39,7 @@ saveBtn.onclick = function () {
         let resaStation = document.getElementById('nameStation').placeholder;
 
         user = new User(userName.value, userFirstName.value, Date.now(), resaStation, urlIMG);
-
+        
         sessionStorage.setItem('signature', urlIMG);
         sessionStorage.setItem('station', resaStation);
         userInfo(user.timer[0], user.timer[1]); //On edit la partie pour les informations
