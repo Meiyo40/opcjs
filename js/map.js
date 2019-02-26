@@ -68,7 +68,7 @@ function setStation(Alldata) {
                 document.getElementById('nameStation').placeholder = Alldata[i].name;
                 document.getElementById('address').placeholder     = Alldata[i].address;
                 document.getElementById('place').placeholder       = Alldata[i].bike_stands;
-                if((tempUser.timer[1] > 0 )&& (tempUser.timer[0] > 0)){
+                if((tempUser.timer[1] > 0 )&& (tempUser.timer[0] > 0) && tempUser.signature){
                     if(Alldata[i].available_bikes > 1){
                         document.getElementById('velo').placeholder = (Alldata[i].available_bikes-1) + ' (1 Resa)';
                     }

@@ -151,7 +151,6 @@ function User(name, firstname, date, station, signature, remainingTime = [basicT
         localStorage.setItem('user', JSON.stringify(user));
     }
     this.resetReservation = function(){
-        this.reset = true;
         message.setAttribute('style', 'display: block');
         oldMessage.setAttribute('style', 'display: none');
         let userAccess = document.getElementById('userAccess');
@@ -161,8 +160,6 @@ function User(name, firstname, date, station, signature, remainingTime = [basicT
         this.dateReservation = null;
         sessionStorage.removeItem('signature');
         clearInterval(timer);
-        min = basicTimer;
-        seconde = 0;
         startTimer = false;
         signature_validation = 0;
         clear_canvas();
@@ -179,7 +176,7 @@ function User(name, firstname, date, station, signature, remainingTime = [basicT
 function diffHour(){
     
     //[min, scd]
-    if(startTimer){
+    if(startTimer && user.dateReservation != null){
         let date = Math.round(user.dateReservation/1000);
         let now = Math.round(Date.now()/1000);
         let diff = now-date;
@@ -189,11 +186,17 @@ function diffHour(){
         chrono[0] = Math.floor(timer/60);
         chrono[1] = timer%60;
         user.timer = chrono;
-        console.log(chrono);
-        userInfo(chrono[0], chrono[1]);
+        if((chrono[0] <= 0)&&(chrono[1] <= 0)){
+            user.resetReservation();
+            userInfo(0, 0);
+        }
+        else{
+            userInfo(chrono[0], chrono[1]);
+        }
         user.saveData();  
     }
     else{
         return [0, 0];
+        console.log('Erreur...');
     }
 }
