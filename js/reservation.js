@@ -16,6 +16,7 @@ if(localStorage.getItem('user')){
                     tempUser.timer
                    );
     user.reset = tempUser.reset;
+    
     let reservName = document.getElementById('name');
     let reservFirstName = document.getElementById('firstname');
     
@@ -65,7 +66,7 @@ if(typeof user != "undefined"){
 }
 
 function startInterval(){
-    timer = setInterval(timerDraw, 1000);
+    timer = setInterval(diffHour, 1000);
 }
 
 function timerDraw(){
@@ -74,7 +75,8 @@ function timerDraw(){
         user.resetReservation();
     }
     
-    else if((user.timer[0] >= 0)&&(user.timer[1] >= -1)){
+    //use user.signature for check if a registred reservation exist
+    else if((user.timer[0] >= 0)&&(user.timer[1] >= -1) && user.signature){
         if (user.timer[1] ==  0){
             user.timer[1] = 59;
             user.timer[0]--;
@@ -92,15 +94,12 @@ function userInfo(min, scd){
     //let resaName = localStorage.getItem('savedName') + ' ' + localStorage.getItem('savedFirstName');
     let resaName = user.name + ' ' + user.firstname;
     
-    
     let stationUI = document.getElementById('stationName');
     let nameUI = document.getElementById('userName');
     let minuteUI = document.getElementById('minute');
     let secondeUI = document.getElementById('seconde');
     
-    
     userUI.setAttribute('style', 'display: block');
-    
     
     stationUI.textContent = stationName;
     nameUI.textContent = resaName;
@@ -119,6 +118,9 @@ function userInfo(min, scd){
         let minAccess = document.getElementById('minAccess');
         let scdAccess = document.getElementById('scdAccess');
         
+        let estimM = document.getElementById('estimationM');
+        let estimS = document.getElementById('estimationS');
+ 
         
         minAccess.textContent = min;
         if(scd < 10){
@@ -127,7 +129,6 @@ function userInfo(min, scd){
         else{
             scdAccess.textContent = scd;
         }
-        
         
         if(user.dateReservation != null){
             if(user.timer[0] >= 10){
@@ -143,7 +144,6 @@ function userInfo(min, scd){
             else{
                 userAccess.setAttribute('style', 'background-color: red; display: block;');
             }
-        
         }
         
     }
@@ -197,11 +197,50 @@ function User(name, firstname, date, station, signature, remainingTime = [basicT
         clearInterval(timer);
         min = basicTimer;
         seconde = 0;
-        start = false;
+        startTimer = false;
         signature_validation = 0;
         clear_canvas();
         
         this.saveData();
         alert('Votre réservation n\'est plus valable !');
     }
+    
+    this.setHour = function(date){
+        date = [date.getUTCMinutes(), date.getUTCSeconds()];
+        return date;
+    }
+    
+    this.timestampRefresh = function (){
+        let now = Date.now();
+    }
+}
+
+function diffHour(){
+    
+    //[min, scd]
+    if(startTimer){
+        let date = Math.round(user.dateReservation/1000);
+        let now = Math.round(Date.now()/1000);
+        let diff = now-date;
+        let base = 20*60;
+        let timer = base - diff;
+        let chrono = [];
+        chrono[0] = Math.ceil(timer/60);
+        chrono[1] = timer%60;
+        if(chrono[1] == 0){
+            chrono[0]++;
+        }
+        
+        userInfo(chrono[0], chrono[1]);
+        user.saveData();
+  
+    }
+    else{
+        return [0, 0];
+    }
+}
+
+function setHour(date){
+    date = [date.getUTCMinutes(), date.getUTCSeconds()];
+    return date;
 }

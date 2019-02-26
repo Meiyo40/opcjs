@@ -38,17 +38,17 @@ saveBtn.onclick = function () {
         let urlIMG = img.toDataURL();
         let resaStation = document.getElementById('nameStation').placeholder;
 
-        user = new User(userName.value, userFirstName.value, new Date(), resaStation, urlIMG);
+        user = new User(userName.value, userFirstName.value, Date.now(), resaStation, urlIMG);
 
         sessionStorage.setItem('signature', urlIMG);
         sessionStorage.setItem('station', resaStation);
-        userInfo(minute, seconde); //On edit la partie pour les informations
+        userInfo(user.timer[0], user.timer[1]); //On edit la partie pour les informations
         localStorage.setItem('user', JSON.stringify(user));
         
         message.setAttribute('style', 'display: none');
         oldMessage.setAttribute('style', 'display: block');
     }
-    else if((signature_validation > 1) && (signature_validation < 40)){
+    else if((signature_validation > 1) && (signature_validation < 5)){
         alert('Votre signature semble un peu petite, merci de bien vouloir signer.');
     }
     else{

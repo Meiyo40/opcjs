@@ -41,6 +41,17 @@
     #mapid{
         height: 400px;
     }
+    #userAccess{
+        margin-bottom: 10px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+    #logo-container{
+        margin-top: 50px;
+    }
 }
 
 @media screen and (max-width: 400px){
