@@ -90,7 +90,7 @@ figure{
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
-.diapo.animate{
+.diapo.fadeIn{
     animation-name: fadeIn;
     animation-duration: 1s;
     animation-fill-mode: forwards;
@@ -98,6 +98,15 @@ figure{
 @keyframes fadeIn{
     0% {opacity: 0;}
     100% {opacity: 1;}
+}
+.diapo.fadeOut{
+    animation-name: fadeOut;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+@keyframes fadeOut{
+    0% {opacity: 1;}
+    100% {opacity: 0;}
 }
 .slide{
     height: auto;
@@ -224,6 +233,9 @@ input{
     width: 250px;
     height: 100px;
 }
+#cancelReservation{
+    margin-bottom: 10px;
+}
 
 
 #save {
@@ -269,7 +281,8 @@ input{
 }
 
 #clear,
-#cancel{
+#cancel,
+#cancelReservation{
 	-moz-box-shadow:inset 0px 1px 0px 0px #f5978e;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #f5978e;
 	box-shadow:inset 0px 1px 0px 0px #f5978e;
@@ -296,7 +309,8 @@ input{
 	text-shadow:0px 1px 0px #810e05;
 }
 #clear:hover,
-#cancel:hover{
+#cancel:hover,
+#cancelReservation{
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c62d1f), color-stop(1, #f24537));
 	background:-moz-linear-gradient(top, #c62d1f 5%, #f24537 100%);
 	background:-webkit-linear-gradient(top, #c62d1f 5%, #f24537 100%);

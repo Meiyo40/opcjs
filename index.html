@@ -57,7 +57,7 @@
         <div id="carousel-control">
             <button id="previous" onclick="less()"><i class="fas fa-arrow-circle-left"></i> Précédant</button>
             <button id="pause" onclick="pause()"><i class="fas fa-pause-circle"></i> Pause</button>
-            <button id="next" onclick="add()"> Suivant <i class="fas fa-arrow-circle-right"></i></button>
+            <button id="next" onclick="next()"> Suivant <i class="fas fa-arrow-circle-right"></i></button>
         </div>
         
         
@@ -121,7 +121,7 @@
                 <p><strong>Votre réservation</strong><br>
                 Vélo réservé à la station <strong id="stationName"></strong> par <strong id="userName"></strong><br>
                 Réservation valide durant encore: <strong id="minute"></strong>min <strong id="seconde"></strong>s</p>
-
+                <button id="cancelReservation" type="button" onclick="getData()">Annuler Réservation</button>
             </div>
             <div id="reservNone">
                 <p>Votre réservation a été annulé ou n'est plus valide (temps écoulé supérieur à 20 min).</p>

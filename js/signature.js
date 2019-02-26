@@ -8,6 +8,7 @@ let clearBtn = document.getElementById('clear');
 let userUI = document.getElementById('user-information');
 let message = document.getElementById('reservNone');
 let oldMessage = document.getElementById('reservOK');
+let cancelReservation = document.getElementById('cancelReservation');
 var user;
 
 reserveBtn.onclick = function () {
@@ -30,7 +31,7 @@ cancelBtn.onclick = function () {
 
 saveBtn.onclick = function () {
     
-    if(signature_validation >= 40){
+    if(signature_validation >= 5){
         let userName = document.getElementById('name');
         let userFirstName = document.getElementById('firstname');
         let img = document.getElementById('signature-pad');
@@ -56,9 +57,13 @@ saveBtn.onclick = function () {
 }
 
 clearBtn.onclick = function () {
-    signature_validation = 0;
-    user.resetReservation();
     clear_canvas();
+}
+
+cancelReservation.onclick = function(){
+    if(window.confirm("Souhaitez vous réellement annuler votre réservation ?")){
+        user.resetReservation();
+    }
 }
 
 

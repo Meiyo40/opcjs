@@ -200,6 +200,8 @@ function User(name, firstname, date, station, signature, remainingTime = [basicT
         start = false;
         signature_validation = 0;
         clear_canvas();
+        
+        this.saveData();
         alert('Votre réservation n\'est plus valable !');
     }
 }
