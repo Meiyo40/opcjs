@@ -30,9 +30,7 @@ function Slider (slides, descriptions){
     this.width = this.slideWindow.offsetWidth;
     
     this.sliderControl = function (){
-        
         if(this.slides != undefined){     
-            this.indexControl();
             this.slideContainer.src = this.slides[this.currentSlide];
             this.description.innerHTML = this.descriptions[this.currentSlide];
             if(!btnAction){
@@ -45,7 +43,6 @@ function Slider (slides, descriptions){
 
             if(!this.isMobile() && !btnAction){
                 this.initTimer();
-                this.range(+1);
             }
             else if(!this.isMobile() && btnAction){
                 this.initTimer();
@@ -58,11 +55,7 @@ function Slider (slides, descriptions){
         this.slideContainer.style.opacity = 0;
         $('.diapo').animate({opacity: 1}, 700)
     }
-    this.animation = function (){
-        clearTimeout(delAnimTimer);     
-        this.range(+1);
-        this.initTimer();
-    }
+
     
     //currentSlide must be in the range of slides.length
     this.range = function (index){
@@ -103,22 +96,9 @@ function Slider (slides, descriptions){
         btnAction = false;
 
         autoTimer = setInterval(function(){
+            that.range(+1);
             that.sliderControl();
         }, 5000);
-    }
-    
-    this.indexControl = function(){
-        if(this.currentSlide != 0 && (this.currentSlide > this.oldSlide)){
-            if(this.oldSlide < (this.slides.length - 1)){
-                this.currentSlide = this.oldSlide + 1;
-                this.oldSlide++;
-            }
-            else{
-                this.currentSlide = 0;
-                this.oldSlide = 0;
-            }
-            
-        }
     }
 }
 
