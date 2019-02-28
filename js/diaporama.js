@@ -14,12 +14,14 @@ let autoTimer = slider.isMobile() ? null : setInterval(Slider.sliderControl, 500
 let delAnimTimer;
 let btnAction = false;
 slider.sliderControl();
+var count = 0;
 
 //NEW VERSION
 function Slider (slides, descriptions){
     this.slides = slides;
     this.descriptions = descriptions;
     this.currentSlide = 0;
+    this.oldSlide = 0;
     this.slideContainer = document.getElementById('slide');
     this.carouselContainer = document.getElementById('carousel');
     this.figure = document.getElementById('slide_container');
@@ -29,37 +31,37 @@ function Slider (slides, descriptions){
     
     this.sliderControl = function (){
         
-        if(this.slides != undefined){
-            
+        if(this.slides != undefined){     
+            this.indexControl();
             this.slideContainer.src = this.slides[this.currentSlide];
-            this.figure.style.left = '0';
-            this.slideContainer.classList.add('fadeIn');
             this.description.innerHTML = this.descriptions[this.currentSlide];
-
+            if(!btnAction){
+                this.fade();
+            }
             clearInterval(autoTimer);
             //ADAPT CONTAINER SIZE TO FIGURE SIZE
             let height = this.figure.offsetHeight;
             this.carouselContainer.style.height = height + 30 + 'px';
 
-
-
             if(!this.isMobile() && !btnAction){
-                delAnimTimer = setTimeout(this.animation, 1000);
+                this.initTimer();
+                this.range(+1);
             }
-            else{
-                initTimer();
+            else if(!this.isMobile() && btnAction){
+                this.initTimer();
+                btnAction = false;
             }
         }
     }
     
+    this.fade = function(){
+        this.slideContainer.style.opacity = 0;
+        $('.diapo').animate({opacity: 1}, 700)
+    }
     this.animation = function (){
-        clearTimeout(delAnimTimer);
-        
-        slider.slideContainer.classList.remove('fadeIn');
-        slider.range(+1);
-
-        
-        initTimer();
+        clearTimeout(delAnimTimer);     
+        this.range(+1);
+        this.initTimer();
     }
     
     //currentSlide must be in the range of slides.length
@@ -94,26 +96,41 @@ function Slider (slides, descriptions){
             return false;
         }
     }
+    
+    this.initTimer = function(that = this){
+        clearTimeout(delAnimTimer);
+        clearInterval(autoTimer);
+        btnAction = false;
+
+        autoTimer = setInterval(function(){
+            that.sliderControl();
+        }, 5000);
+    }
+    
+    this.indexControl = function(){
+        if(this.currentSlide != 0 && (this.currentSlide > this.oldSlide)){
+            if(this.oldSlide < (this.slides.length - 1)){
+                this.currentSlide = this.oldSlide + 1;
+                this.oldSlide++;
+            }
+            else{
+                this.currentSlide = 0;
+                this.oldSlide = 0;
+            }
+            
+        }
+    }
 }
+
 //endObject
 
 
-function initTimer(){
-    clearTimeout(delAnimTimer);
-    clearInterval(autoTimer);
-    btnAction = false;
-    
-    autoTimer = setInterval(function(){
-        slider.sliderControl();
-    }, 5000);
-}
-
+//Button/keyboard events
 //GOTO the next slide
 function next(){
     slider.range(+1);
     btnAction = true;
     clearInterval(autoTimer);
-    clearInterval();
     slider.sliderControl();
 }
 
@@ -130,3 +147,12 @@ function pause(){
     clearInterval(autoTimer);
 }
 
+document.addEventListener('keydown', function(e){
+    const key = e.key;
+    if(key === 'ArrowRight'){
+        next();
+    }
+    else if(key === 'ArrowLeft'){
+        less();
+    }
+}, false);

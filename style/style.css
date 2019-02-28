@@ -82,7 +82,7 @@ figure{
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
-.diapo.fadeIn{
+.test{
     animation-name: fadeIn;
     animation-duration: 1s;
     animation-fill-mode: forwards;
@@ -90,15 +90,6 @@ figure{
 @keyframes fadeIn{
     0% {opacity: 0;}
     100% {opacity: 1;}
-}
-.diapo.fadeOut{
-    animation-name: fadeOut;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-}
-@keyframes fadeOut{
-    0% {opacity: 1;}
-    100% {opacity: 0;}
 }
 .slide{
     height: auto;

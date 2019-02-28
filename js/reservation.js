@@ -166,6 +166,7 @@ function User(name, firstname, date, station, signature, remainingTime = [basicT
         
         this.saveData();
         alert('Votre réservation n\'est plus valable !');
+        window.location.reload();
     }
     
     this.timestampRefresh = function (){
