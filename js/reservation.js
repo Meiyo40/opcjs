@@ -4,6 +4,8 @@ const basicTimer = 19;
 var timer;
 var startTimer = false;
 
+
+//Cache system
 if(localStorage.getItem('user')){
     let tempUser = JSON.parse(localStorage.getItem('user'));
     user = new User(tempUser.name, 
@@ -22,10 +24,17 @@ if(localStorage.getItem('user')){
     reservFirstName.value = tempUser.firstname;
     userInfo();
 }
+if(localStorage.getItem('reservation')){
+    let tempReservation = JSON.parse(localStorage.getItem('reservation'));
+    reservation = new Reservation();
+}
 
 
 
-if(typeof user != "undefined"){    
+
+//Si un utilisateur existe (donc la reservation existe) et si la reservation est plus vielle que 20min, alors on reset!
+if(typeof user != "undefined"){
+    
     canvasForm.setAttribute('style', 'display: block');
     reserveBtn.setAttribute('style', 'display: none');
     formPad.setAttribute('style', 'height: auto');
@@ -37,10 +46,7 @@ if(typeof user != "undefined"){
             context.drawImage(img, 0, 0);
         };
     }
-}
-
-//Si un utilisateur existe (donc la reservation existe) et si la reservation est plus vielle que 20min, alors on reset!
-if(typeof user != "undefined"){
+    
     if(user.dateReservation != null){
         let userTS = Date.parse(user.dateReservation);
         let limitTimer = 20*60*1000; //20min
@@ -60,7 +66,7 @@ if(typeof user != "undefined"){
 }
 
 function startInterval(){
-    timer = setInterval(diffHour, 1000);
+    timer = setInterval(() => diffHour(user), 1000);
 }
 
 function userInfo(min, scd){
@@ -179,6 +185,7 @@ function Reservation (){
     this.save = () => {
         sessionStorage.setItem('signature', this.urlIMG);
         sessionStorage.setItem('station', this.resaStation);
+        localStorage.setItem('reservation', JSON.stringify(this));
     }
     
     this.reset = (userObj) =>{
@@ -202,11 +209,11 @@ function Reservation (){
     }
 }
 
-function diffHour(){
+function diffHour(userObj){
     
     //[min, scd]
-    if(startTimer && user.dateReservation != null){
-        let date = Math.round(user.dateReservation/1000);
+    if(startTimer && userObj.dateReservation != null){
+        let date = Math.round(userObj.dateReservation/1000);
         let now = Math.round(Date.now()/1000);
         let diff = now-date;
         let base = 20*60;
@@ -214,15 +221,15 @@ function diffHour(){
         let chrono = [];
         chrono[0] = Math.floor(timer/60);
         chrono[1] = timer%60;
-        user.timer = chrono;
+        userObj.timer = chrono;
         if((chrono[0] <= 0)&&(chrono[1] <= 0)){
-            user.resetReservation();
+            userObj.resetReservation();
             userInfo(0, 0);
         }
         else{
             userInfo(chrono[0], chrono[1]);
         }
-        user.saveData();  
+        userObj.saveData();  
     }
     else{
         return [0, 0];
