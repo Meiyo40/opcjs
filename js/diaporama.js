@@ -12,11 +12,8 @@ let descriptions = ["<strong>Tutoriel étape 1/3:</strong> Choisissez une des st
 let slider = new Slider(slides ,descriptions);
 let autoTimer = slider.isMobile() ? null : setInterval(Slider.sliderControl, 5000);
 let delAnimTimer;
-let btnAction = false;
-slider.sliderControl();
-var count = 0;
 
-//NEW VERSION
+//SLIDER OBJECT
 function Slider (slides, descriptions){
     this.slides = slides;
     this.descriptions = descriptions;
@@ -28,12 +25,18 @@ function Slider (slides, descriptions){
     this.slideWindow = document.getElementById('diaporama');
     this.description = document.getElementById('description');
     this.width = this.slideWindow.offsetWidth;
+    this.btnAction = false;
+    this.btnPrevious = document.getElementById('previous');
+    this.btnNext = document.getElementById('next');
+    this.btnPause = document.getElementById('pause');
+    
+    
     
     this.sliderControl = function (){
         if(this.slides != undefined){     
             this.slideContainer.src = this.slides[this.currentSlide];
             this.description.innerHTML = this.descriptions[this.currentSlide];
-            if(!btnAction){
+            if(!this.btnAction){
                 this.fade();
             }
             clearInterval(autoTimer);
@@ -41,19 +44,19 @@ function Slider (slides, descriptions){
             let height = this.figure.offsetHeight;
             this.carouselContainer.style.height = height + 30 + 'px';
 
-            if(!this.isMobile() && !btnAction){
+            if(!this.isMobile() && !this.btnAction){
                 this.initTimer();
             }
-            else if(!this.isMobile() && btnAction){
+            else if(!this.isMobile() && this.btnAction){
                 this.initTimer();
-                btnAction = false;
+                this.btnAction = false;
             }
         }
     }
     
     this.fade = function(){
         this.slideContainer.style.opacity = 0;
-        $('.diapo').animate({opacity: 1}, 700)
+        $('.diapo').animate({opacity: 1}, 700);
     }
 
     
@@ -93,46 +96,51 @@ function Slider (slides, descriptions){
     this.initTimer = function(that = this){
         clearTimeout(delAnimTimer);
         clearInterval(autoTimer);
-        btnAction = false;
+        that.btnAction = false;
 
         autoTimer = setInterval(function(){
             that.range(+1);
             that.sliderControl();
         }, 5000);
     }
+    
+    this.next = function(){
+        this.range(+1);
+        this.btnAction = true;
+        clearInterval(autoTimer);
+        this.sliderControl();
+    }
+    
+    this.previous = function(){
+        this.range(-1);
+        this.btnAction = true;
+        clearInterval(autoTimer);
+        this.sliderControl();
+    }
+    
+    this.pause = function(){
+        clearInterval(autoTimer);
+    }
+    
+    this.EventListener = function(that = this){
+        document.addEventListener('keydown', function(e){
+            const key = e.key;
+            if(key === 'ArrowRight'){
+                that.next();
+            }
+            else if(key === 'ArrowLeft'){
+                that.previous();
+            }
+        }, false);
+        
+        this.btnNext.onclick = () => this.next();
+        this.btnPause.onclick = () => this.pause();
+        this.btnPrevious.onclick = () => this.previous();
+    }
+    
+   
 }
 
 //endObject
-
-
-//Button/keyboard events
-//GOTO the next slide
-function next(){
-    slider.range(+1);
-    btnAction = true;
-    clearInterval(autoTimer);
-    slider.sliderControl();
-}
-
-//GOTO the previous slide
-function less(){
-    slider.range(-1);
-    btnAction = true;
-    clearInterval(autoTimer);
-    slider.sliderControl();
-}
-
-
-function pause(){
-    clearInterval(autoTimer);
-}
-
-document.addEventListener('keydown', function(e){
-    const key = e.key;
-    if(key === 'ArrowRight'){
-        next();
-    }
-    else if(key === 'ArrowLeft'){
-        less();
-    }
-}, false);
+slider.sliderControl();
+slider.EventListener();

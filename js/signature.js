@@ -9,7 +9,9 @@ let userUI = document.getElementById('user-information');
 let message = document.getElementById('reservNone');
 let oldMessage = document.getElementById('reservOK');
 let cancelReservation = document.getElementById('cancelReservation');
+let userAccess = document.getElementById('userAccess');
 var user;
+var reservation;
 
 reserveBtn.onclick = function () {
     let availableBike = parseInt(document.getElementById('velo').placeholder);
@@ -32,21 +34,8 @@ cancelBtn.onclick = function () {
 saveBtn.onclick = function () {
     
     if(signature_validation >= 5){
-        let userName = document.getElementById('name');
-        let userFirstName = document.getElementById('firstname');
-        let img = document.getElementById('signature-pad');
-        let urlIMG = img.toDataURL();
-        let resaStation = document.getElementById('nameStation').placeholder;
-
-        user = new User(userName.value, userFirstName.value, Date.now(), resaStation, urlIMG);
-        
-        sessionStorage.setItem('signature', urlIMG);
-        sessionStorage.setItem('station', resaStation);
-        userInfo(user.timer[0], user.timer[1]); //On edit la partie pour les informations
-        localStorage.setItem('user', JSON.stringify(user));
-        
-        message.setAttribute('style', 'display: none');
-        oldMessage.setAttribute('style', 'display: block');
+        reservation =  new Reservation();
+        reservation.onCreate();
     }
     else if((signature_validation > 1) && (signature_validation < 5)){
         alert('Votre signature semble un peu petite, merci de bien vouloir signer.');
@@ -62,7 +51,7 @@ clearBtn.onclick = function () {
 
 cancelReservation.onclick = function(){
     if(window.confirm("Souhaitez vous réellement annuler votre réservation ?")){
-        user.resetReservation();
+        reservation.reset(user);
     }
 }
 
@@ -146,11 +135,15 @@ function drawLine() {
 }
 
 // Clear du Canvas :
-function clear_canvas() {
+function clear_canvas(userObj) {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     context.beginPath();
     context.restore();
-    user.signature = null;
+
+    signature_validation = 0;
+    
+    userObj.signatureValidation = 0;
+    userObj.signature = null;
 }
 
 

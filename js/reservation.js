@@ -148,29 +148,57 @@ function User(name, firstname, date, station, signature, remainingTime = [basicT
     this.signatureValidation = signature_validation;
     
     this.saveData = function (){
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify(this));
     }
-    this.resetReservation = function(){
-        message.setAttribute('style', 'display: block');
-        oldMessage.setAttribute('style', 'display: none');
-        let userAccess = document.getElementById('userAccess');
-        userAccess.setAttribute('style', 'display: none');
+
+    this.timestampRefresh = function (){
+        let now = Date.now();
+    }
+}
+
+function Reservation (){
+    this.onCreate = () => {
+         
+        this.userName = document.getElementById('name');
+        this.userFirstName = document.getElementById('firstname');
+        this.img = document.getElementById('signature-pad');
+        this.urlIMG = this.img.toDataURL();
+        this.resaStation = document.getElementById('nameStation').placeholder;
+
+        user = new User(this.userName.value, this.userFirstName.value, Date.now(), this.resaStation, this.urlIMG);
         
-        this.timer = [basicTimer, 60];
-        this.dateReservation = null;
+        
+        userInfo(user.timer[0], user.timer[1]); //On edit la partie pour les informations
+        user.saveData();
+        
+        this.save();
+        
+        message.setAttribute('style', 'display: none');
+        oldMessage.setAttribute('style', 'display: block');
+    }
+    this.save = () => {
+        sessionStorage.setItem('signature', this.urlIMG);
+        sessionStorage.setItem('station', this.resaStation);
+    }
+    
+    this.reset = (userObj) =>{
+        clear_canvas(userObj); 
+        
         sessionStorage.removeItem('signature');
         clearInterval(timer);
         startTimer = false;
-        signature_validation = 0;
-        clear_canvas();
         
-        this.saveData();
+        //see let declarations at the start of signature.js
+        message.setAttribute('style', 'display: block');
+        oldMessage.setAttribute('style', 'display: none');
+        userAccess.setAttribute('style', 'display: none');
+        
+        userObj.timer = [basicTimer, 60];
+        userObj.dateReservation = null;
+        userObj.saveData();
+        
         alert('Votre réservation n\'est plus valable !');
         window.location.reload();
-    }
-    
-    this.timestampRefresh = function (){
-        let now = Date.now();
     }
 }
 
