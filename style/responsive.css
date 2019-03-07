@@ -25,6 +25,9 @@
     #mapid{
         height: 500px;
     }
+    #carousel{
+        min-height: 200px;
+    }
 }
 
 @media screen and (max-width: 480px){

@@ -66,7 +66,7 @@ if(typeof user != "undefined"){
 }
 
 function startInterval(){
-    timer = setInterval(() => diffHour(user), 1000);
+    timer = setInterval(() => diffHour(user, reservation), 1000);
 }
 
 function userInfo(min, scd){
@@ -209,7 +209,7 @@ function Reservation (){
     }
 }
 
-function diffHour(userObj){
+function diffHour(userObj, reservObj){
     
     //[min, scd]
     if(startTimer && userObj.dateReservation != null){
@@ -223,7 +223,7 @@ function diffHour(userObj){
         chrono[1] = timer%60;
         userObj.timer = chrono;
         if((chrono[0] <= 0)&&(chrono[1] <= 0)){
-            userObj.resetReservation();
+            reservObj.reset(userObj);
             userInfo(0, 0);
         }
         else{

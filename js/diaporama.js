@@ -10,8 +10,9 @@ let descriptions = ["<strong>Tutoriel étape 1/3:</strong> Choisissez une des st
                    "<strong>Profitez maintenant de votre réservation !</strong>"];
 
 let slider = new Slider(slides ,descriptions);
-let autoTimer = slider.isMobile() ? null : setInterval(Slider.sliderControl, 5000);
+let autoTimer = slider.isMobile() ? null : setInterval(slider.sliderControl, 5000);
 let delAnimTimer;
+let sizeTimer = setInterval(slider.size, 500);
 
 //SLIDER OBJECT
 function Slider (slides, descriptions){
@@ -39,11 +40,10 @@ function Slider (slides, descriptions){
             if(!this.btnAction){
                 this.fade();
             }
+            
             clearInterval(autoTimer);
-            //ADAPT CONTAINER SIZE TO FIGURE SIZE
-            let height = this.figure.offsetHeight;
-            this.carouselContainer.style.height = height + 30 + 'px';
-
+            this.size();
+            
             if(!this.isMobile() && !this.btnAction){
                 this.initTimer();
             }
@@ -58,8 +58,12 @@ function Slider (slides, descriptions){
         this.slideContainer.style.opacity = 0;
         $('.diapo').animate({opacity: 1}, 700);
     }
-
     
+    //ADAPT CONTAINER SIZE TO FIGURE SIZE
+    this.size = () => {
+        let height = this.figure.offsetHeight;
+        this.carouselContainer.style.height = height + 30 + 'px';
+    }
     //currentSlide must be in the range of slides.length
     this.range = function (index){
         if(index == (+1)){

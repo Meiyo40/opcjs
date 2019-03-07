@@ -85,11 +85,3 @@ function setStation(Alldata) {
 //CREATE TOULOUSE MAP
 var newMap = new Map('Toulouse', [43.604348, 1.443409], 'mapid');
 newMap.initMap();
-
-
-
-
-
-function onMapClick(e) {
-    alert("You clicked the map at " + e.latlng);
-}
