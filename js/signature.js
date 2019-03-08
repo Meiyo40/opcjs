@@ -46,7 +46,7 @@ saveBtn.onclick = function () {
 }
 
 clearBtn.onclick = function () {
-    clear_canvas();
+    clear_canvas(user);
 }
 
 cancelReservation.onclick = function(){
