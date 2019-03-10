@@ -169,12 +169,17 @@ function Reservation (){
         this.img = document.getElementById('signature-pad');
         this.urlIMG = this.img.toDataURL();
         this.resaStation = document.getElementById('nameStation').placeholder;
+        this.available_bike = document.getElementById('velo');
 
         user = new User(this.userName.value, this.userFirstName.value, Date.now(), this.resaStation, this.urlIMG);
         
         
         userInfo(user.timer[0], user.timer[1]); //On edit la partie pour les informations
         user.saveData();
+        
+        
+        //Offline trick for simulate a real reservation on station panel
+        this.available_bike.placeholder = (parseInt(this.available_bike.placeholder)-1) + " (1 resa)";
         
         this.save();
         
