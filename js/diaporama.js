@@ -12,6 +12,7 @@ let descriptions = ["<strong>Tutoriel étape 1/3:</strong> Choisissez une des st
 let slider = new Slider(slides ,descriptions);
 let autoTimer = slider.isMobile() ? null : setInterval(slider.sliderControl, 5000);
 let delAnimTimer;
+//DEBUGLINE?
 let sizeTimer = setInterval(slider.size, 500);
 
 //SLIDER OBJECT

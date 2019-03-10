@@ -325,6 +325,7 @@ SECTION USER INFO RESERVATION
 }
 /* BTN HEAD */
 #userAccess{
+    color: #fff;
     position: fixed;
     height: auto !important;
     margin: 0 auto;
@@ -341,7 +342,6 @@ SECTION USER INFO RESERVATION
 }
 #userAccess > a{
     text-decoration: none;
-    color: #fff;
 }
 /* FOOTER INFO */
 #user-information{

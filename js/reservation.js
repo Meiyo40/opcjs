@@ -109,8 +109,7 @@ function userInfo(min, scd){
                 userAccess.setAttribute('style', 'background-color: green; display: block');
             }
             else if((user.timer[0] < 12) && (user.timer[0] >=7)){
-                userAccess.setAttribute('style', 'background-color: yellow; display: block');
-                userAccessBtn.setAttribute('style', 'color: black;');
+                userAccess.setAttribute('style', 'background-color: yellow; color: black; display: block');
             }
             else if((user.timer[0] < 7)&&(user.timer[0] > 3)){
                 userAccess.setAttribute('style', 'background-color: orange; display: block');
