@@ -10,10 +10,7 @@ let descriptions = ["<strong>Tutoriel étape 1/3:</strong> Choisissez une des st
                    "<strong>Profitez maintenant de votre réservation !</strong>"];
 
 let slider = new Slider(slides ,descriptions);
-let autoTimer = slider.isMobile() ? null : setInterval(slider.sliderControl, 5000);
-let delAnimTimer;
-//DEBUGLINE?
-let sizeTimer = setInterval(slider.size, 500);
+
 
 //SLIDER OBJECT
 function Slider (slides, descriptions){
@@ -34,7 +31,7 @@ function Slider (slides, descriptions){
     
     
     
-    this.sliderControl = function (){
+    this.sliderControl = () => {
         if(this.slides != undefined){     
             this.slideContainer.src = this.slides[this.currentSlide];
             this.description.innerHTML = this.descriptions[this.currentSlide];
@@ -42,7 +39,7 @@ function Slider (slides, descriptions){
                 this.fade();
             }
             
-            clearInterval(autoTimer);
+            clearInterval(this.autoTimer);
             this.size();
             
             if(!this.isMobile() && !this.btnAction){
@@ -99,32 +96,34 @@ function Slider (slides, descriptions){
     }
     
     this.initTimer = function(that = this){
-        clearTimeout(delAnimTimer);
-        clearInterval(autoTimer);
+        clearInterval(that.autoTimer);
         that.btnAction = false;
 
-        autoTimer = setInterval(function(){
+        that.autoTimer = setInterval(function(){
             that.range(+1);
             that.sliderControl();
         }, 5000);
     }
+    this.autoTimer = this.isMobile() ? null : setInterval(this.sliderControl, 5000);
+    //DEBUGLINE?
+    this.sizeTimer = setInterval(this.size, 500);
     
-    this.next = function(){
+    this.next = () => {
         this.range(+1);
         this.btnAction = true;
-        clearInterval(autoTimer);
+        clearInterval(this.autoTimer);
         this.sliderControl();
     }
     
-    this.previous = function(){
+    this.previous = () => {
         this.range(-1);
         this.btnAction = true;
-        clearInterval(autoTimer);
+        clearInterval(this.autoTimer);
         this.sliderControl();
     }
     
-    this.pause = function(){
-        clearInterval(autoTimer);
+    this.pause = () => {
+        clearInterval(this.autoTimer);
     }
     
     this.EventListener = function(that = this){
@@ -148,4 +147,6 @@ function Slider (slides, descriptions){
 
 //endObject
 slider.sliderControl();
+slider.sizeTimer;
 slider.EventListener();
+slider.autoTimer;

@@ -159,6 +159,15 @@ MAIN SECTION (MAP + FORM)
     padding: 20px 0;
     background: #079fbb;
 }
+#stationsGlobal > div{
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+.icon{
+    width: 35px;
+    height: 50px;
+}
 /*
 
 MAP

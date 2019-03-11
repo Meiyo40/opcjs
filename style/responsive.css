@@ -28,6 +28,9 @@
     #carousel{
         min-height: 200px;
     }
+    #stationsGlobal{
+        display: none;
+    }
 }
 
 @media screen and (max-width: 480px){

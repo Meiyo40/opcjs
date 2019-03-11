@@ -1,5 +1,3 @@
-
-
 var timer;
 //var startTimer = false;
 

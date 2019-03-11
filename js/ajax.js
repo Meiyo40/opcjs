@@ -4,15 +4,6 @@ var apiKey = '14b9693cd22171c820eebfa713292d3ab49e6222';
 var jcdAPI = "https://api.jcdecaux.com/vls/v1/stations?contract=Toulouse&apiKey=" + apiKey;
 var Alldata = [];
 
-
-function storeData(data) {
-    for (let i = 0; i < data.length; i++) {
-        Alldata.push(data[i]);
-    }
-
-    setStation(Alldata);
-}
-
 function getXMLHttpRequest() {
     let xhr = null;
     if (window.XMLHttpRequest || window.ActiveXObject) {
@@ -44,7 +35,8 @@ function ajaxGet(url) {
     oXhr.send();
 
     oXhr.onload = function () {
-        storeData(this.response);
+        let setStation = new Station(this.response[0]);
+        setStation.setStations(this.response);
     }
 }
 

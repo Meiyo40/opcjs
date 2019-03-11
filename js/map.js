@@ -6,6 +6,21 @@ function Map(name, coord, mapid) {
     this.coord = coord;
     this.mapid = mapid;
     this.myMap = L.map(this.mapid).setView(this.coord, 15.5);
+    
+    //MAP DATA STATIONS
+    this.available_stations = 0;
+    this.closed_stations = 0;
+    this.empty_stations = 0;
+    
+    this.updateMapInfo = () => {
+        let availableHTML = document.getElementById('availableStations');
+        let emptyHTML = document.getElementById('emptyStations');
+        let closedHTML = document.getElementById('closedStations');
+        
+        availableHTML.innerHTML  = this.available_stations;
+        emptyHTML.innerHTML  = this.empty_stations;
+        closedHTML.innerHTML  = this.closed_stations;
+    }
 
     this.initMap = function () {
         L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -15,6 +30,7 @@ function Map(name, coord, mapid) {
             accessToken: 'pk.eyJ1IjoibWVpeW8iLCJhIjoiY2pxcmp2bGMzMGxvajQ2bjJwbHJuZWQzMyJ9.INZjlfp6WqLeajKxCsKCgg'
         }).addTo(this.myMap);
     }
+    
 }
 //OBJ STATION
 function Station(data) {
@@ -48,13 +64,16 @@ function Station(data) {
         //createMarker
         if(data.available_bikes > 0 && data.status == "OPEN"){
            var marker = new L.marker([this.coord[0], this.coord[1]], {icon: Available}).addTo(newMap.myMap);
+            newMap.available_stations++;
            }
         else if(data.status == "CLOSED"){
             var marker = new L.marker([this.coord[0], this.coord[1]], {icon: Closed}).addTo(newMap.myMap);
+            newMap.closed_stations++;
         }
         else{
            var marker = new L.marker([this.coord[0], this.coord[1]], {icon: notAvailable}).addTo(newMap.myMap);
-           }
+            newMap.empty_stations++;
+        }
         //Show popup with station name
         marker.bindPopup('<strong>Station:</strong><br>' + this.name).openPopup();
         marker.on('click', function(){
@@ -64,33 +83,33 @@ function Station(data) {
             document.getElementById('place').placeholder       = data.bike_stands;
         })
     }
-}
-
-function setStation(Alldata) {
-
-    for (let i = 0; i < Alldata.length; i++) {
-        stations[i] = new Station(Alldata[i]);
-        stations[i].setMarker();
-        //if an user exist, we set previous data
-        if(localStorage.getItem('user')){
-            let tempUser = JSON.parse(localStorage.getItem('user'));
-            if(Alldata[i].name == tempUser.station){
-                document.getElementById('nameStation').placeholder = Alldata[i].name;
-                document.getElementById('address').placeholder     = Alldata[i].address;
-                document.getElementById('place').placeholder       = Alldata[i].bike_stands;
-                if((tempUser.timer[1] > 0 )&& (tempUser.timer[0] > 0) && tempUser.signature){
-                    if(Alldata[i].available_bikes > 1){
-                        document.getElementById('velo').placeholder = (Alldata[i].available_bikes-1) + ' (1 Resa)';
+    
+    this.setStations = (Alldata) => {
+        for (let i = 0; i < Alldata.length; i++) {
+            stations[i] = new Station(Alldata[i]);
+            stations[i].setMarker();
+            //if an user exist, we set previous data
+            if(localStorage.getItem('user')){
+                let tempUser = JSON.parse(localStorage.getItem('user'));
+                if(Alldata[i].name == tempUser.station){
+                    document.getElementById('nameStation').placeholder = Alldata[i].name;
+                    document.getElementById('address').placeholder     = Alldata[i].address;
+                    document.getElementById('place').placeholder       = Alldata[i].bike_stands;
+                    if((tempUser.timer[1] > 0 )&& (tempUser.timer[0] > 0) && tempUser.signature){
+                        if(Alldata[i].available_bikes > 1){
+                            document.getElementById('velo').placeholder = (Alldata[i].available_bikes-1) + ' (1 Resa)';
+                        }
+                        else{
+                            document.getElementById('velo').placeholder = (Alldata[i].available_bikes) + ' (1 Resa)';
+                        }
                     }
                     else{
-                        document.getElementById('velo').placeholder = (Alldata[i].available_bikes) + ' (1 Resa)';
+                        document.getElementById('velo').placeholder = Alldata[i].available_bikes;
                     }
-                }
-                else{
-                    document.getElementById('velo').placeholder = Alldata[i].available_bikes;
                 }
             }
         }
+        newMap.updateMapInfo();
     }
 }
 //CREATE TOULOUSE MAP
