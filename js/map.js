@@ -22,8 +22,10 @@ function Station(data) {
     this.name = data.name;
     this.address = data.address;
     this.coord = [data.position.lat, data.position.lng];
+    this.status = data.status;
     
     this.setMarker = function () {
+        //TODO STATION FERME
         //IconStyle
         var Available = L.icon({
             iconUrl: 'assets/Cycling_Location.png',
@@ -37,10 +39,19 @@ function Station(data) {
             iconAnchor: [37,59],
             popupAnchor: [-18,-56]
         });
+        var Closed = L.icon({
+            iconUrl: 'assets/Cycling_Location_closed.png',
+            iconSize: [39,60],
+            iconAnchor: [37,59],
+            popupAnchor: [-18,-56]
+        });
         //createMarker
-        if(data.available_bikes > 0){
+        if(data.available_bikes > 0 && data.status == "OPEN"){
            var marker = new L.marker([this.coord[0], this.coord[1]], {icon: Available}).addTo(newMap.myMap);
            }
+        else if(data.status == "CLOSED"){
+            var marker = new L.marker([this.coord[0], this.coord[1]], {icon: Closed}).addTo(newMap.myMap);
+        }
         else{
            var marker = new L.marker([this.coord[0], this.coord[1]], {icon: notAvailable}).addTo(newMap.myMap);
            }

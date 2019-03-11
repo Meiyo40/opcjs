@@ -1,185 +1,120 @@
-//CANVAS DISPLAY + BUTTON BEHAVIOR
-let reserveBtn = document.getElementById('reserve-btn');
-let canvasForm = document.getElementById('signature-form');
-let formPad = document.getElementById('UserForm');
-let cancelBtn = document.getElementById('cancel');
-let saveBtn = document.getElementById('save');
-let clearBtn = document.getElementById('clear');
-let userUI = document.getElementById('user-information');
-let message = document.getElementById('reservNone');
-let oldMessage = document.getElementById('reservOK');
-let cancelReservation = document.getElementById('cancelReservation');
-let userAccess = document.getElementById('userAccess');
-var user;
-var reservation;
+//CANVAS OBJECT
+function CanvasObj() {
+	this.color = "#000";
+	this.painting = false;
+	this.started = false;
+	this.width_brush = 2;
+	this.signature_validation = 0;
+	this.canvas = document.querySelector('#signature-pad');
+	this.cursorX = 0;
+    this.cursorY = 0;
+	this.context = this.canvas.getContext('2d');
+	this.paintWindow = document.querySelector('#canvas-container');
+	this.windowStyle = getComputedStyle(this.paintWindow);
+	
+	//Ajuste la taille du canvas a son container, JS oblige pour éviter des soucis avec les coords de la souris
+	this.context.canvas.width = parseInt(this.windowStyle.getPropertyValue('width'));
+	this.context.canvas.height = parseInt(this.windowStyle.getPropertyValue('height'));
+	
+	this.canvas.addEventListener("touchstart", onmousedown, false);
+	this.canvas.addEventListener("touchmove", onmousemove, true);
+	this.canvas.addEventListener("touchend", onmouseup, false);
+	document.body.addEventListener("touchcancel", onmouseup, false);
+	
+	this.canvas.addEventListener("mousedown", function (e) {
+		// Click souris enfoncé sur le canvas, je dessine :
+		this.painting = true;
+		// Coordonnées de la souris :
+		canvasObj.cursorX = (e.pageX - this.offsetLeft);
+		canvasObj.cursorY = (e.pageY - this.offsetTop);
+		canvasObj.paint();
+	});
+	// Relachement du Click arrête de dessiner :
+	this.canvas.addEventListener("mouseup", function () {
+		this.painting = false;
+		this.started = false;
+	});
+	// Mouvement de la souris sur le canvas :
+	this.canvas.addEventListener("mousemove", function (e) {
+		// Si je suis en train de dessiner (click souris enfoncé) :
+		if (this.painting) {
+			// Set Coordonnées de la souris :
+			canvasObj.cursorX = (e.pageX - this.offsetLeft);
+			canvasObj.cursorY = (e.pageY - this.offsetTop);
+				// Dessine une ligne :
+			canvasObj.drawLine();
+		}
+	});
+	
+	this.canvas.addEventListener('touchstart', function(e){
+		let coord = this.getTouchPos(this.canvas, e);
+		this.cursorX = coord.x;
+		this.cursorY = coord.y;
+		
+		this.paint();
+	});
 
-reserveBtn.onclick = function () {
-    let availableBike = parseInt(document.getElementById('velo').placeholder);
-    if (availableBike > 0) {
-        canvasForm.setAttribute('style', 'display: block');
-        canvasSaveState();
-        reserveBtn.setAttribute('style', 'display: none');
-        formPad.setAttribute('style', 'height: auto');
-    } else {
-        alert('Cette station ne dispose de pas velo disponible, merci de choisir une autre station');
-    }
-};
+	this.canvas.addEventListener("touchend", function (e) {
+	  var mouseEvent = new MouseEvent("mouseup", {});
+	  this.canvas.dispatchEvent(mouseEvent);
+	});
 
-cancelBtn.onclick = function () {
-    canvasForm.setAttribute('style', 'display: none');
-    reserveBtn.setAttribute('style', 'display: block margin: 0 auto');
-    formPad.setAttribute('style', 'height: 480px');
+	this.canvas.addEventListener('touchmove', function(e){
+		let coord = this.getTouchPos(this.canvas, e);
+		this.cursorX = coord.x;
+		this.cursorY = coord.y;
+		
+		this.drawLine();
+	});
+	
+	this.canvas.addEventListener("touchstart",  function(event) {event.preventDefault()})
+	this.canvas.addEventListener("touchmove",   function(event) {event.preventDefault()})
+	this.canvas.addEventListener("touchend",    function(event) {event.preventDefault()})
+	this.canvas.addEventListener("touchcancel", function(event) {event.preventDefault()})
+	
+	this.getTouchPos = (canvasDom, touchEvent) => {
+	  var rect = canvasDom.getBoundingClientRect();
+	  return {
+		x: touchEvent.touches[0].clientX - rect.left,
+		y: touchEvent.touches[0].clientY - rect.top
+	  };
+	}
+	this.canvasSaveState = () => {
+		this.context.save();
+	}
+	this.paint = () => {
+		this.context.stroke();
+	}
+	// Fonction qui dessine une ligne :
+	this.drawLine = () => {
+		// Si c'est le début, j'initialise
+		if (!this.started) {
+			// Je place mon curseur pour la première fois :
+			this.context.beginPath();
+			this.context.moveTo(this.cursorX, this.cursorY);
+			this.started = true;
+		}
+		// Sinon je dessine
+		else {
+			this.context.lineTo(this.cursorX, this.cursorY);
+			this.context.strokeStyle = this.color;
+			this.context.lineWidth = this.width_brush;
+			this.context.stroke();
+			this.signature_validation += 1;
+            
+		}
+	}
+
+	// Clear du Canvas :
+	this.clear_canvas = (userObj) => {
+		this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+		this.context.beginPath();
+		this.context.restore();
+
+		this.signature_validation = 0;
+		
+		userObj.signatureValidation = 0;
+		userObj.signature = null;
+	}
+
 }
-
-saveBtn.onclick = function () {
-    
-    if(signature_validation >= 5){
-        reservation =  new Reservation();
-        reservation.onCreate();
-    }
-    else if((signature_validation > 1) && (signature_validation < 5)){
-        alert('Votre signature semble un peu petite, merci de bien vouloir signer.');
-    }
-    else{
-        alert('Une signature est nécessaire pour pouvoir réserver');
-    }
-}
-
-clearBtn.onclick = function () {
-    clear_canvas(user);
-}
-
-cancelReservation.onclick = function(){
-    if(window.confirm("Souhaitez vous réellement annuler votre réservation ?")){
-        reservation.reset(user);
-    }
-}
-
-
-/*
-
-CANVAS
-
-*/
-// Variables 
-let color = "#000";
-let painting = false;
-let started = false;
-let width_brush = 2;
-let signature_validation = 0;
-let canvas = document.querySelector('#signature-pad');
-let cursorX, cursorY;
-let context = canvas.getContext('2d');
-let paintWindow = document.querySelector('#canvas-container');
-let windowStyle = getComputedStyle(paintWindow);
-//Ajuste la taille du canvas a son container, JS oblige pour éviter des soucis avec les coords de la souris
-context.canvas.width = parseInt(windowStyle.getPropertyValue('width'));
-context.canvas.height = parseInt(windowStyle.getPropertyValue('height'));
-
-canvas.addEventListener("touchstart", onmousedown, false);
-canvas.addEventListener("touchmove", onmousemove, true);
-canvas.addEventListener("touchend", onmouseup, false);
-document.body.addEventListener("touchcancel", onmouseup, false);
-
-
-canvas.addEventListener("mousedown", function (e) {
-    // Click souris enfoncé sur le canvas, je dessine :
-    painting = true;
-    // Coordonnées de la souris :
-    cursorX = (e.pageX - this.offsetLeft);
-    cursorY = (e.pageY - this.offsetTop);
-    paint();
-});
-
-// Relachement du Click arrête de dessiner :
-canvas.addEventListener("mouseup", function () {
-    painting = false;
-    started = false;
-});
-
-// Mouvement de la souris sur le canvas :
-canvas.addEventListener("mousemove", function (e) {
-    // Si je suis en train de dessiner (click souris enfoncé) :
-    if (painting) {
-        // Set Coordonnées de la souris :
-        cursorX = (e.pageX - this.offsetLeft);
-        cursorY = (e.pageY - this.offsetTop);
-
-        // Dessine une ligne :
-        drawLine();
-    }
-});
-function canvasSaveState(){
-    context.save();
-}
-function paint() {
-    context.stroke();
-}
-// Fonction qui dessine une ligne :
-function drawLine() {
-    // Si c'est le début, j'initialise
-    if (!started) {
-        // Je place mon curseur pour la première fois :
-        context.beginPath();
-        context.moveTo(cursorX, cursorY);
-        started = true;
-    }
-    // Sinon je dessine
-    else {
-        context.lineTo(cursorX, cursorY);
-        context.strokeStyle = color;
-        context.lineWidth = width_brush;
-        context.stroke();
-        signature_validation += 1;
-    }
-}
-
-// Clear du Canvas :
-function clear_canvas(userObj) {
-    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-    context.beginPath();
-    context.restore();
-
-    signature_validation = 0;
-    
-    userObj.signatureValidation = 0;
-    userObj.signature = null;
-}
-
-
-//MOBILE TOUCH 
-
-canvas.addEventListener('touchstart', function(e){
-    let coord = getTouchPos(canvas, e);
-    cursorX = coord.x;
-    cursorY = coord.y;
-    
-    paint();
-});
-
-canvas.addEventListener("touchend", function (e) {
-  var mouseEvent = new MouseEvent("mouseup", {});
-  canvas.dispatchEvent(mouseEvent);
-});
-
-canvas.addEventListener('touchmove', function(e){
-    let coord = getTouchPos(canvas, e);
-    cursorX = coord.x;
-    cursorY = coord.y;
-    
-    drawLine();
-});
-
-function getTouchPos(canvasDom, touchEvent) {
-  var rect = canvasDom.getBoundingClientRect();
-  return {
-    x: touchEvent.touches[0].clientX - rect.left,
-    y: touchEvent.touches[0].clientY - rect.top
-  };
-}
-
-
-canvas.addEventListener("touchstart",  function(event) {event.preventDefault()})
-canvas.addEventListener("touchmove",   function(event) {event.preventDefault()})
-canvas.addEventListener("touchend",    function(event) {event.preventDefault()})
-canvas.addEventListener("touchcancel", function(event) {event.preventDefault()})

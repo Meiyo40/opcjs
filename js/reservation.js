@@ -1,127 +1,71 @@
-//STORAGE SYSTEM
-//Si on a deja un utilisateur qui a été enregistré, on recupere tout et on recrée l'objet.
-const basicTimer = 19;
+
+
 var timer;
-var startTimer = false;
+//var startTimer = false;
 
-
-//Cache system
-if(localStorage.getItem('user')){
-    let tempUser = JSON.parse(localStorage.getItem('user'));
-    user = new User(tempUser.name, 
-                    tempUser.firstname, 
-                    tempUser.dateReservation, 
-                    tempUser.station, 
-                    tempUser.signature,
-                    tempUser.timer
-                   );
+//OBJECT USER INFO ABOUT RESERVATION STATUS
+function UserInfo(min, scd, userObj, reservObj){
+	this.stationName = user.station;
+    this.resaName = user.name + ' ' + user.firstname;
+    this.stationUI = document.getElementById('stationName');
+    this.nameUI = document.getElementById('userName');
+    this.minuteUI = document.getElementById('minute');
+    this.secondeUI = document.getElementById('seconde');
+	this.userAccess = document.getElementById('userAccess');
+    this.userAccessBtn = document.getElementById('userAccessBtn');
+    this.minAccess = document.getElementById('minAccess');
+    this.scdAccess = document.getElementById('scdAccess');
+    this.userObj = user;
+    this.reservObj = reservation;
+	this.min = min;
+    this.scd = scd;
+	
+	userUI.setAttribute('style', 'display: block;');
     
-    let reservName = document.getElementById('name');
-    let reservFirstName = document.getElementById('firstname');
-    
-    signature_validation = tempUser.signatureValidation;
-    reservName.value = tempUser.name;
-    reservFirstName.value = tempUser.firstname;
-    userInfo();
-}
-if(localStorage.getItem('reservation')){
-    let tempReservation = JSON.parse(localStorage.getItem('reservation'));
-    reservation = new Reservation();
-}
-
-
-
-
-//Si un utilisateur existe (donc la reservation existe) et si la reservation est plus vielle que 20min, alors on reset!
-if(typeof user != "undefined"){
-    
-    canvasForm.setAttribute('style', 'display: block');
-    reserveBtn.setAttribute('style', 'display: none');
-    formPad.setAttribute('style', 'height: auto');
-    
-    if(user.signature != null){
-        let img = new Image;
-        img.src = user.signature;
-        img.onload = function (){
-            context.drawImage(img, 0, 0);
-        };
-    }
-    
-    if(user.dateReservation != null){
-        let userTS = Date.parse(user.dateReservation);
-        let limitTimer = 20*60*1000; //20min
-        let now = Date.now();
-        if((now - userTS) > limitTimer){
-            user.resetReservation();
-            user.dateReservation = null;
-            user.saveData();
-        }
-    }
-    else{
-        let message = document.getElementById('reservNone');
-        let oldMessage = document.getElementById('reservOK');
-        message.setAttribute('style', 'display: block');
-        oldMessage.setAttribute('style', 'display: none');
-    }
-}
-
-function startInterval(){
-    timer = setInterval(() => diffHour(user, reservation), 1000);
-}
-
-function userInfo(min, scd){
-    let stationName = user.station;
-    let resaName = user.name + ' ' + user.firstname;
-    let stationUI = document.getElementById('stationName');
-    let nameUI = document.getElementById('userName');
-    let minuteUI = document.getElementById('minute');
-    let secondeUI = document.getElementById('seconde');
-    
-    userUI.setAttribute('style', 'display: block');
-    
-    stationUI.textContent = stationName;
-    nameUI.textContent = resaName;
-    minuteUI.textContent = min;
-    if(scd < 10){
-        secondeUI.textContent = "0" + scd;
-    }
-    else{
-        secondeUI.textContent = scd;
-    }
-    
-    //Cette fonction gere l'affichage du  bouton d'information et d'acces rapide en haut de page
-    function userAccess(){
-        let userAccess = document.getElementById('userAccess');
-        let userAccessBtn = document.getElementById('userAccessBtn');
-        let minAccess = document.getElementById('minAccess');
-        let scdAccess = document.getElementById('scdAccess'); 
-        
-        minAccess.textContent = min;
-        if(scd < 10){
-            scdAccess.textContent = "0" + scd;
+    this.stationUI.textContent = this.stationName;
+    this.nameUI.textContent = this.resaName;
+	
+	//Cette fonction gere l'affichage du  bouton d'information et d'acces rapide en haut de page
+    this.userAccessInfo = () => {
+        this.minuteUI.textContent = this.min;
+        if(this.scd < 10){
+            this.secondeUI.textContent = "0" + this.scd;
         }
         else{
-            scdAccess.textContent = scd;
+            this.secondeUI.textContent = this.scd;
         }
         
-        if(user.dateReservation != null){
-            if(user.timer[0] >= 10){
-                userAccess.setAttribute('style', 'background-color: green; display: block');
+        this.minAccess.textContent = this.min;
+        if(this.scd < 10){
+            this.scdAccess.textContent = "0" + this.scd;
+        }
+        else{
+            this.scdAccess.textContent = this.scd;
+        }
+        
+        if(this.userObj.dateReservation != null){
+            if(this.userObj.timer[0] >= 10){
+                this.userAccess.setAttribute('style', 'background-color: green; display: block');
             }
-            else if((user.timer[0] < 12) && (user.timer[0] >=7)){
-                userAccess.setAttribute('style', 'background-color: yellow; color: black; display: block');
+            else if((this.userObj.timer[0] < 12) && (this.userObj.timer[0] >=7)){
+                this.userAccess.setAttribute('style', 'background-color: yellow; color: black; display: block');
             }
-            else if((user.timer[0] < 7)&&(user.timer[0] > 3)){
-                userAccess.setAttribute('style', 'background-color: orange; display: block');
+            else if((this.userObj.timer[0] < 7)&&(this.userObj.timer[0] > 3)){
+                this.userAccess.setAttribute('style', 'background-color: orange; display: block');
             }
             else{
-                userAccess.setAttribute('style', 'background-color: red; display: block;');
+                this.userAccess.setAttribute('style', 'background-color: red; display: block;');
             }
         }
         
     }
-    //Cette fonction gère l'affichage du curseur sur la timeline
-    function timeline(){
+    
+    this.startInterval = () => {
+    timer = setInterval(() => toggleInfo.diffHour(user, reservation), 1000);
+    }
+	
+	//Cette fonction gère l'affichage du curseur sur la timeline
+    this.timeline = () => {
         const max = 1200;
         //On recupere les secondes du timer user
         let stamp = (user.timer[0]*60) + user.timer[1];
@@ -132,25 +76,58 @@ function userInfo(min, scd){
         timelineCursor.style.left = cursorPos;
     }
     
-    if (!startTimer){
-        startTimer = true;
-        clearInterval(timer);
-        startInterval();
+    this.diffHour = (userObj, reservObj) => {
+        //[min, scd]
+        if(reservObj.startTimer && userObj.dateReservation != null){
+            let date = Math.round(userObj.dateReservation/1000);
+            let now = Math.round(Date.now()/1000);
+            let diff = now-date;
+            let base = 20*60;
+            let timer = base - diff;
+            let chrono = [];
+            chrono[0] = Math.floor(timer/60);
+            chrono[1] = timer%60;
+            userObj.timer = chrono;
+            if((chrono[0] <= 0)&&(chrono[1] <= 0)){
+                reservObj.reset(userObj);
+                this.userAccessInfo(0, 0);
+            }
+            else{
+                this.UpdateUserInfo(chrono[0], chrono[1]);
+            }
+            this.userObj.saveData();  
+        }
+        else{
+            return [0, 0];
+            console.log('Erreur...');
+        }
     }
     
-    timeline();
-    userAccess();   
+    this.UpdateUserInfo = (min, scd) => {
+        if (!this.startTimer){
+            this.reservObj.startTimer = true;
+            clearInterval(timer);
+            this.startInterval();
+        }
+        
+        this.min = min;
+        this.scd = scd;
+        this.timeline();
+        this.userAccessInfo();   
+    }
+	
+	//endobject
 }
 
 //USER OBJECT
-function User(name, firstname, date, station, signature, remainingTime = [basicTimer, 60]){
+function User(name, firstname, date, station, signature, remainingTime = [reservation.basicTimer, 60]){
     this.name = name;
     this.firstname = firstname;
     this.dateReservation = date;
     this.station = station;
     this.signature = signature;
     this.timer = remainingTime;
-    this.signatureValidation = signature_validation;
+    this.signatureValidation;
     
     this.saveData = function (){
         localStorage.setItem('user', JSON.stringify(this));
@@ -160,8 +137,11 @@ function User(name, firstname, date, station, signature, remainingTime = [basicT
         let now = Date.now();
     }
 }
-
+//Reservation OBJECT
 function Reservation (){
+    this.basicTimer = 19;
+    this.startTimer = false;
+    
     this.onCreate = () => {
          
         this.userName = document.getElementById('name');
@@ -172,14 +152,17 @@ function Reservation (){
         this.available_bike = document.getElementById('velo');
 
         user = new User(this.userName.value, this.userFirstName.value, Date.now(), this.resaStation, this.urlIMG);
+        user.signatureValidation = canvasObj.signature_validation;
         
+        toggleInfo = new UserInfo; 
+        localStorage.setItem('userInfo', toggleInfo);
         
-        userInfo(user.timer[0], user.timer[1]); //On edit la partie pour les informations
+        toggleInfo.UpdateUserInfo(user.timer[0], user.timer[1], user, this); //On edit la partie pour les informations
         user.saveData();
         
         
         //Offline trick for simulate a real reservation on station panel
-        this.available_bike.placeholder = (parseInt(this.available_bike.placeholder)-1) + " (1 resa)";
+        this.available_bike.placeholder = (parseInt(this.available_bike.placeholder) -1 ) + " (1 resa)";
         
         this.save();
         
@@ -193,18 +176,18 @@ function Reservation (){
     }
     
     this.reset = (userObj) =>{
-        clear_canvas(userObj); 
+        canvasObj.clear_canvas(userObj); 
         
         sessionStorage.removeItem('signature');
         clearInterval(timer);
-        startTimer = false;
+        this.startTimer = false;
         
         //see let declarations at the start of signature.js
         message.setAttribute('style', 'display: block');
         oldMessage.setAttribute('style', 'display: none');
         userAccess.setAttribute('style', 'display: none');
         
-        userObj.timer = [basicTimer, 60];
+        userObj.timer = [this.basicTimer, 60];
         userObj.dateReservation = null;
         userObj.saveData();
         
@@ -213,30 +196,3 @@ function Reservation (){
     }
 }
 
-function diffHour(userObj, reservObj){
-    
-    //[min, scd]
-    if(startTimer && userObj.dateReservation != null){
-        let date = Math.round(userObj.dateReservation/1000);
-        let now = Math.round(Date.now()/1000);
-        let diff = now-date;
-        let base = 20*60;
-        let timer = base - diff;
-        let chrono = [];
-        chrono[0] = Math.floor(timer/60);
-        chrono[1] = timer%60;
-        userObj.timer = chrono;
-        if((chrono[0] <= 0)&&(chrono[1] <= 0)){
-            reservObj.reset(userObj);
-            userInfo(0, 0);
-        }
-        else{
-            userInfo(chrono[0], chrono[1]);
-        }
-        userObj.saveData();  
-    }
-    else{
-        return [0, 0];
-        console.log('Erreur...');
-    }
-}
