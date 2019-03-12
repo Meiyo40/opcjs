@@ -13,11 +13,11 @@ if(localStorage.getItem('user')){
     let reservName = document.getElementById('name');
     let reservFirstName = document.getElementById('firstname');
     
-    signature_validation = tempUser.signatureValidation;
     reservName.value = tempUser.name;
     reservFirstName.value = tempUser.firstname;
     
     canvasObj = new CanvasObj;
+    canvasObj.signature_validation = tempUser.signatureValidation;
 }
 if(localStorage.getItem('reservation')){
     let tempReservation = JSON.parse(localStorage.getItem('reservation'));

@@ -52,7 +52,7 @@ saveBtn.onclick = function () {
 }
 
 clearBtn.onclick = function () {
-    clear_canvas(user);
+    canvasObj.clear_canvas(user);
 }
 
 cancelReservation.onclick = function(){

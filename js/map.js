@@ -46,20 +46,20 @@ function Station(data) {
         var Available = L.icon({
             iconUrl: 'assets/Cycling_Location.png',
             iconSize: [39,60],
-            iconAnchor: [37,59],
-            popupAnchor: [-18,-56]
+            iconAnchor: [18,59],
+            popupAnchor: [0,-56]
         });
         var notAvailable = L.icon({
             iconUrl: 'assets/Cycling_Location_empty.png',
             iconSize: [39,60],
-            iconAnchor: [37,59],
-            popupAnchor: [-18,-56]
+            iconAnchor: [18,59],
+            popupAnchor: [0,-56]
         });
         var Closed = L.icon({
             iconUrl: 'assets/Cycling_Location_closed.png',
             iconSize: [39,60],
-            iconAnchor: [37,59],
-            popupAnchor: [-18,-56]
+            iconAnchor: [18,59],
+            popupAnchor: [0,-56]
         });
         //createMarker
         if(data.available_bikes > 0 && data.status == "OPEN"){
