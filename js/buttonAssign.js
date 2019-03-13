@@ -11,6 +11,7 @@ let oldMessage = document.getElementById('reservOK');
 let cancelReservation = document.getElementById('cancelReservation');
 let userAccess = document.getElementById('userAccess');
 var user;
+var timer;
 var reservation;
 var toggleInfo;
 var canvasObj;
