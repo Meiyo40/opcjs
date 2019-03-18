@@ -8,6 +8,7 @@ function UserInfo(min, scd, userObj, reservObj){
     this.secondeUI = document.getElementById('seconde');
 	this.userAccess = document.getElementById('userAccess');
     this.userAccessBtn = document.getElementById('userAccessBtn');
+    this.cancelReservationBtn = document.getElementById('cancelReservation');
     this.minAccess = document.getElementById('minAccess');
     this.scdAccess = document.getElementById('scdAccess');
     this.userObj = user;
@@ -20,6 +21,11 @@ function UserInfo(min, scd, userObj, reservObj){
     this.stationUI.textContent = this.stationName;
     this.nameUI.textContent = this.resaName;
 	
+    this.cancelReservationBtn.onclick = () => {
+        if(window.confirm("Souhaitez vous réellement annuler votre réservation ?")){
+            reservation.reset(user);
+        }
+    }
 	//Cette fonction gere l'affichage du  bouton d'information et d'acces rapide en haut de page
     this.userAccessInfo = () => {
         this.minuteUI.textContent = this.min;

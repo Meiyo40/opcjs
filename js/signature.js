@@ -11,6 +11,10 @@ function CanvasObj() {
 	this.context = this.canvas.getContext('2d');
 	this.paintWindow = document.querySelector('#canvas-container');
 	this.windowStyle = getComputedStyle(this.paintWindow);
+    this.reserveBtn = document.getElementById('reserve-btn');
+    this.cancelBtn = document.getElementById('cancel');
+    this.saveBtn = document.getElementById('save');
+    this.clearBtn = document.getElementById('clear');
 	
 	//Ajuste la taille du canvas a son container, JS oblige pour éviter des soucis avec les coords de la souris
 	this.context.canvas.width = parseInt(this.windowStyle.getPropertyValue('width'));
@@ -116,5 +120,47 @@ function CanvasObj() {
 		userObj.signatureValidation = 0;
 		userObj.signature = null;
 	}
+    
+    this.reserveBtn.onclick = () => {
+        let availableBike = parseInt(document.getElementById('velo').placeholder);
+        if (availableBike > 0) {
+            canvasObj = new CanvasObj();
+            canvasForm.setAttribute('style', 'display: block');
+            canvasObj.canvasSaveState();
+            reserveBtn.setAttribute('style', 'display: none');
+            formPad.setAttribute('style', 'height: auto');
+        } else {
+            alert('Cette station ne dispose de pas velo disponible, merci de choisir une autre station');
+        }
+    }
+    
+    this.cancelBtn.onclick = () => {
+        canvasForm.setAttribute('style', 'display: none');
+        reserveBtn.setAttribute('style', 'display: block margin: 0 auto');
+        formPad.setAttribute('style', 'height: 480px');
+    }
+    
+    this.saveBtn.onclick = () => {
+       let availableBike = parseInt(document.getElementById('velo').placeholder);
+        if((canvasObj.signature_validation >= 5) & (availableBike > 0)){
+            reservation =  new Reservation();
+            reservation.onCreate();
+        }
+        else if(availableBike <= 0){
+            alert('Pas assez de vélo disponible danss cette station');
+        }
+        else if((canvasObj.signature_validation > 1) && (canvasObj.signature_validation < 5)){
+            alert('Votre signature semble un peu petite, merci de bien vouloir signer.');
+        }
+        else{
+            alert('Une signature est nécessaire pour pouvoir réserver');
+        } 
+    }
+    
+    this.clearBtn.onclick = () => {
+        canvasObj.clear_canvas(user);
+    }
+    
+    //TODO AJOUT BOUTON SAVE/CLEARCVS/CANCEL
 
 }
