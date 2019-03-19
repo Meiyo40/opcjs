@@ -1,9 +1,3 @@
-
-//Recup donnees API
-var apiKey = '14b9693cd22171c820eebfa713292d3ab49e6222';
-var jcdAPI = "https://api.jcdecaux.com/vls/v1/stations?contract=Toulouse&apiKey=" + apiKey;
-var Alldata = [];
-
 function getXMLHttpRequest() {
     let xhr = null;
     if (window.XMLHttpRequest || window.ActiveXObject) {
@@ -40,4 +34,3 @@ function ajaxGet(url) {
     }
 }
 
-ajaxGet(jcdAPI);

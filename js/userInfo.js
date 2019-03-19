@@ -11,12 +11,13 @@ function UserInfo(min, scd, userObj, reservObj){
     this.cancelReservationBtn = document.getElementById('cancelReservation');
     this.minAccess = document.getElementById('minAccess');
     this.scdAccess = document.getElementById('scdAccess');
+    this.userUI = document.getElementById('user-information');
     this.userObj = user;
     this.reservObj = reservation;
 	this.min = min;
     this.scd = scd;
 	
-	userUI.setAttribute('style', 'display: block;');
+	this.userUI.setAttribute('style', 'display: block;');
     
     this.stationUI.textContent = this.stationName;
     this.nameUI.textContent = this.resaName;

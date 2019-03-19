@@ -2,6 +2,9 @@
 function Reservation (){
     this.basicTimer = 19;
     this.startTimer = false;
+    this.userAccess = document.getElementById('userAccess');
+    this.oldMessage = document.getElementById('reservOK');
+    this.message = document.getElementById('reservNone');
     
     this.onCreate = () => {
          
@@ -27,8 +30,8 @@ function Reservation (){
         
         this.save();
         
-        message.setAttribute('style', 'display: none');
-        oldMessage.setAttribute('style', 'display: block');
+        this.message.setAttribute('style', 'display: none');
+        this.oldMessage.setAttribute('style', 'display: block');
     }
     this.save = () => {
         sessionStorage.setItem('signature', this.urlIMG);
@@ -37,6 +40,8 @@ function Reservation (){
     }
     
     this.reset = (userObj) =>{
+        
+        
         canvasObj.clear_canvas(userObj); 
         
         sessionStorage.removeItem('signature');
@@ -44,9 +49,9 @@ function Reservation (){
         this.startTimer = false;
         
         //see let declarations at the start of signature.js
-        message.setAttribute('style', 'display: block');
-        oldMessage.setAttribute('style', 'display: none');
-        userAccess.setAttribute('style', 'display: none');
+        this.message.setAttribute('style', 'display: block');
+        this.oldMessage.setAttribute('style', 'display: none');
+        this.userAccess.setAttribute('style', 'display: none');
         
         userObj.timer = [this.basicTimer, 60];
         userObj.dateReservation = null;

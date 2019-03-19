@@ -33,7 +33,9 @@ if(localStorage.getItem('reservation')){
 
 //Si un utilisateur existe (donc la reservation existe) et si la reservation est plus vielle que 20min, alors on reset!
 if(typeof user != "undefined"){
-    
+    let reserveBtn = document.getElementById('reserve-btn');
+    let canvasForm = document.getElementById('signature-form');
+    let formPad = document.getElementById('UserForm');
     canvasForm.setAttribute('style', 'display: block');
     reserveBtn.setAttribute('style', 'display: none');
     formPad.setAttribute('style', 'height: auto');

@@ -15,6 +15,8 @@ function CanvasObj() {
     this.cancelBtn = document.getElementById('cancel');
     this.saveBtn = document.getElementById('save');
     this.clearBtn = document.getElementById('clear');
+    this.canvasForm = document.getElementById('signature-form');
+    this.formPad = document.getElementById('UserForm');
 	
 	//Ajuste la taille du canvas a son container, JS oblige pour éviter des soucis avec les coords de la souris
 	this.context.canvas.width = parseInt(this.windowStyle.getPropertyValue('width'));
@@ -124,20 +126,19 @@ function CanvasObj() {
     this.reserveBtn.onclick = () => {
         let availableBike = parseInt(document.getElementById('velo').placeholder);
         if (availableBike > 0) {
-            canvasObj = new CanvasObj();
-            canvasForm.setAttribute('style', 'display: block');
+            this.canvasForm.setAttribute('style', 'display: block');
             canvasObj.canvasSaveState();
-            reserveBtn.setAttribute('style', 'display: none');
-            formPad.setAttribute('style', 'height: auto');
+            this.reserveBtn.setAttribute('style', 'display: none');
+            this.formPad.setAttribute('style', 'height: auto');
         } else {
             alert('Cette station ne dispose de pas velo disponible, merci de choisir une autre station');
         }
     }
     
     this.cancelBtn.onclick = () => {
-        canvasForm.setAttribute('style', 'display: none');
-        reserveBtn.setAttribute('style', 'display: block margin: 0 auto');
-        formPad.setAttribute('style', 'height: 480px');
+        this.canvasForm.setAttribute('style', 'display: none');
+        this.reserveBtn.setAttribute('style', 'display: block margin: 0 auto');
+        this.formPad.setAttribute('style', 'height: 480px');
     }
     
     this.saveBtn.onclick = () => {
@@ -160,7 +161,5 @@ function CanvasObj() {
     this.clearBtn.onclick = () => {
         canvasObj.clear_canvas(user);
     }
-    
-    //TODO AJOUT BOUTON SAVE/CLEARCVS/CANCEL
 
 }

@@ -112,6 +112,3 @@ function Station(data) {
         newMap.updateMapInfo();
     }
 }
-//CREATE TOULOUSE MAP
-var newMap = new Map('Toulouse', [43.604348, 1.443409], 'mapid');
-newMap.initMap();
