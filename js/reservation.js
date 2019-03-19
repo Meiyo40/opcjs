@@ -5,6 +5,7 @@ function Reservation (){
     this.userAccess = document.getElementById('userAccess');
     this.oldMessage = document.getElementById('reservOK');
     this.message = document.getElementById('reservNone');
+    this.canvasObj;
     
     this.onCreate = () => {
          
@@ -16,7 +17,7 @@ function Reservation (){
         this.available_bike = document.getElementById('velo');
 
         user = new User(this.userName.value, this.userFirstName.value, Date.now(), this.resaStation, this.urlIMG);
-        user.signatureValidation = canvasObj.signature_validation;
+        user.signatureValidation = this.canvasObj.signature_validation;
         
         toggleInfo = new UserInfo; 
         localStorage.setItem('userInfo', toggleInfo);
@@ -26,13 +27,25 @@ function Reservation (){
         
         
         //Offline trick for simulate a real reservation on station panel
-        this.available_bike.placeholder = (parseInt(this.available_bike.placeholder) -1 ) + " (1 resa)";
         
+        this.updatePanel();
         this.save();
         
         this.message.setAttribute('style', 'display: none');
         this.oldMessage.setAttribute('style', 'display: block');
     }
+    
+    this.updatePanel = () => {
+        let resaCheck = JSON.parse(localStorage.getItem('reservation'));
+        if(resaCheck.resaStation == this.resaStation){
+            this.available_bike.placeholder = parseInt(this.available_bike.placeholder) + " (1 resa)";
+        }
+        else{
+            this.available_bike.placeholder = (parseInt(this.available_bike.placeholder) -1 ) + " (1 resa)";
+        }
+    }
+    
+    
     this.save = () => {
         sessionStorage.setItem('signature', this.urlIMG);
         sessionStorage.setItem('station', this.resaStation);

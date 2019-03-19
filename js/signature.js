@@ -145,6 +145,7 @@ function CanvasObj() {
        let availableBike = parseInt(document.getElementById('velo').placeholder);
         if((canvasObj.signature_validation >= 5) & (availableBike > 0)){
             reservation =  new Reservation();
+            reservation.canvasObj = canvasObj;
             reservation.onCreate();
         }
         else if(availableBike <= 0){
