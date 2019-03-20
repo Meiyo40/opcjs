@@ -26,6 +26,11 @@ let slider = new Slider(['assets/diapo/diapo1.jpg',
                    "<strong>Profitez maintenant de votre réservation !</strong>"]
 );
 
+slider.sliderControl();
+slider.sizeTimer;
+slider.EventListener();
+slider.autoTimer;
+
 canvasObj = new CanvasObj();
 
 //CREATE TOULOUSE MAP

@@ -116,14 +116,14 @@ function Slider (slides, descriptions){
         clearInterval(this.autoTimer);
     }
     
-    this.EventListener = function(that = this){
-        document.addEventListener('keydown', function(e){
+    this.EventListener = () => {
+        document.addEventListener('keydown', (e) => {
             const key = e.key;
             if(key === 'ArrowRight'){
-                that.next();
+                this.next();
             }
             else if(key === 'ArrowLeft'){
-                that.previous();
+                this.previous();
             }
         }, false);
         
