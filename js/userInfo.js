@@ -24,7 +24,7 @@ function UserInfo(min, scd, userObj, reservObj){
 	
     this.cancelReservationBtn.onclick = () => {
         if(window.confirm("Souhaitez vous réellement annuler votre réservation ?")){
-            reservation.reset(user);
+            this.reservObj.reset(this.userObj);
         }
     }
 	//Cette fonction gere l'affichage du  bouton d'information et d'acces rapide en haut de page

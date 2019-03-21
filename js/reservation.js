@@ -5,8 +5,9 @@ function Reservation (){
     this.userAccess = document.getElementById('userAccess');
     this.oldMessage = document.getElementById('reservOK');
     this.message = document.getElementById('reservNone');
-    this.canvasObj;
+    this.canvasObj = canvasObj;
     this.resaStation;
+    this.cache = cache;
     
     this.onCreate = () => {
          
@@ -19,6 +20,8 @@ function Reservation (){
 
         user = new User(this.userName.value, this.userFirstName.value, Date.now(), this.resaStation, this.urlIMG);
         user.signatureValidation = this.canvasObj.signature_validation;
+        this.cache.user = user;
+        this.cache.canvasObj = this.canvasObj;
         
         toggleInfo = new UserInfo; 
         localStorage.setItem('userInfo', toggleInfo);
@@ -29,12 +32,12 @@ function Reservation (){
         
         //Offline trick for simulate a real reservation on station panel
         this.save();
+        this.cache.userExist();
         this.updatePanel();
         
         
         this.message.setAttribute('style', 'display: none');
         this.oldMessage.setAttribute('style', 'display: block');
-        window.location.reload();
     }
     
     this.updatePanel = () => {
@@ -58,22 +61,21 @@ function Reservation (){
     this.reset = (userObj) =>{
         
         
-        canvasObj.clear_canvas(userObj); 
+        this.canvasObj.clear_canvas(userObj); 
         
         sessionStorage.removeItem('signature');
         clearInterval(timer);
         this.startTimer = false;
         
-        //see let declarations at the start of signature.js
         this.message.setAttribute('style', 'display: block');
         this.oldMessage.setAttribute('style', 'display: none');
         this.userAccess.setAttribute('style', 'display: none');
-        
         userObj.timer = [this.basicTimer, 60];
         userObj.dateReservation = null;
         userObj.saveData();
         
         alert('Votre réservation n\'est plus valable !');
+        this.cache.delete();
         window.location.reload();
     }
 }

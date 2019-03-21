@@ -11,6 +11,12 @@ function User(name, firstname, date, station, signature, remainingTime = [reserv
     this.saveData = function (){
         localStorage.setItem('user', JSON.stringify(this));
     }
+    
+    this.resetData = function (){
+        this.resetReservation();
+        this.dateReservation = null;
+        this.saveData();
+    }
 
     this.timestampRefresh = function (){
         let now = Date.now();

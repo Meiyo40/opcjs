@@ -40,6 +40,7 @@ function Station(data, Map) {
     this.coord = [data.position.lat, data.position.lng];
     this.status = data.status;
     this.Map = Map;
+    this.marker;
     
     this.setMarker = function () {
         //TODO STATION FERME
@@ -64,20 +65,20 @@ function Station(data, Map) {
         });
         //createMarker
         if(data.available_bikes > 0 && data.status === "OPEN"){
-           var marker = new L.marker([this.coord[0], this.coord[1]], {icon: Available}).addTo(this.Map.myMap);
+           this.marker = new L.marker([this.coord[0], this.coord[1]], {icon: Available}).addTo(this.Map.myMap);
             this.Map.available_stations++;
            }
         else if(data.status === "CLOSED"){
-            var marker = new L.marker([this.coord[0], this.coord[1]], {icon: Closed}).addTo(this.Map.myMap);
+            this.marker = new L.marker([this.coord[0], this.coord[1]], {icon: Closed}).addTo(this.Map.myMap);
             this.Map.closed_stations++;
         }
         else{
-           var marker = new L.marker([this.coord[0], this.coord[1]], {icon: notAvailable}).addTo(this.Map.myMap);
+           this.marker = new L.marker([this.coord[0], this.coord[1]], {icon: notAvailable}).addTo(this.Map.myMap);
             this.Map.empty_stations++;
         }
         //Show popup with station name
-        marker.bindPopup('<strong>Station:</strong><br>' + this.name).openPopup();
-        marker.on('click', function(){
+        this.marker.bindPopup('<strong>Station:</strong><br>' + this.name).openPopup();
+        this.marker.on('click', function(){
             document.getElementById('nameStation').placeholder = data.name;
             document.getElementById('address').placeholder     = data.address;
             document.getElementById('velo').placeholder        = data.available_bikes;
