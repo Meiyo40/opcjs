@@ -41,13 +41,12 @@ function Reservation (){
     }
     
     this.updatePanel = () => {
-        let resaCheck = JSON.parse(localStorage.getItem('reservation'));
-        console.log(this.resaStation);
-        if(resaCheck.resaStation == this.resaStation){
-            this.available_bike.placeholder = parseInt(this.available_bike.placeholder)-1 + " (1 resa)";
+        if(this.available_bike.placeholder.indexOf("Resa")>0){
+            this.available_bike.placeholder = parseInt(this.available_bike.placeholder) + " (1 Resa)";
+            
         }
         else{
-            this.available_bike.placeholder = (parseInt(this.available_bike.placeholder) -1 ) + " (1 resa)";
+            this.available_bike.placeholder = (parseInt(this.available_bike.placeholder) -1 ) + " (1 Resa)";
         }
     }
     

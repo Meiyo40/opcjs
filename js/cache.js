@@ -25,6 +25,7 @@ function Cache() {
 
             canvasObj = new CanvasObj;
             canvasObj.signature_validation = tempUser.signatureValidation;
+            user.signatureValidation = tempUser.signatureValidation;
             
             this.user = user;
             this.userExist();

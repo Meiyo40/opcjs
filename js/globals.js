@@ -21,9 +21,10 @@ slider.EventListener();
 slider.autoTimer;
 
 cache = new Cache();
+canvasObj = new CanvasObj();
 cache.getCache();
 
-canvasObj = new CanvasObj();
+
 
 //CREATE TOULOUSE MAP
 var newMap = new Map('Toulouse', [43.604348, 1.443409], 'mapid');
