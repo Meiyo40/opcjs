@@ -17,7 +17,7 @@ function getXMLHttpRequest() {
     return xhr;
 }
 
-function ajaxGet(url) {
+function ajaxGet(url, Map) {
     var oXhr = getXMLHttpRequest();
 
     oXhr.onerror = function (data) {
@@ -30,7 +30,7 @@ function ajaxGet(url) {
 
     oXhr.onload = function () {
         let setStation = new Station(this.response[0]);
-        setStation.setStations(this.response);
+        setStation.setStations(this.response, Map);
     }
 }
 

@@ -10,6 +10,7 @@
 //let oldMessage = document.getElementById('reservOK');
 //let cancelReservation = document.getElementById('cancelReservation');
 //let userAccess = document.getElementById('userAccess');
+
 var user;
 var timer;
 var reservation;
@@ -43,4 +44,4 @@ var apiKey = '14b9693cd22171c820eebfa713292d3ab49e6222';
 var jcdAPI = "https://api.jcdecaux.com/vls/v1/stations?contract=Toulouse&apiKey=" + apiKey;
 var Alldata = [];
 
-ajaxGet(jcdAPI);
+ajaxGet(jcdAPI, newMap);

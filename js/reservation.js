@@ -34,13 +34,14 @@ function Reservation (){
         
         this.message.setAttribute('style', 'display: none');
         this.oldMessage.setAttribute('style', 'display: block');
+        window.location.reload();
     }
     
     this.updatePanel = () => {
         let resaCheck = JSON.parse(localStorage.getItem('reservation'));
         console.log(this.resaStation);
         if(resaCheck.resaStation == this.resaStation){
-            this.available_bike.placeholder = parseInt(this.available_bike.placeholder) + " (1 resa)";
+            this.available_bike.placeholder = parseInt(this.available_bike.placeholder)-1 + " (1 resa)";
         }
         else{
             this.available_bike.placeholder = (parseInt(this.available_bike.placeholder) -1 ) + " (1 resa)";

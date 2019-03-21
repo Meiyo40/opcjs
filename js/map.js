@@ -33,12 +33,13 @@ function Map(name, coord, mapid) {
     
 }
 //OBJ STATION
-function Station(data) {
+function Station(data, Map) {
 
     this.name = data.name;
     this.address = data.address;
     this.coord = [data.position.lat, data.position.lng];
     this.status = data.status;
+    this.Map = Map;
     
     this.setMarker = function () {
         //TODO STATION FERME
@@ -62,17 +63,17 @@ function Station(data) {
             popupAnchor: [0,-56]
         });
         //createMarker
-        if(data.available_bikes > 0 && data.status == "OPEN"){
-           var marker = new L.marker([this.coord[0], this.coord[1]], {icon: Available}).addTo(newMap.myMap);
-            newMap.available_stations++;
+        if(data.available_bikes > 0 && data.status === "OPEN"){
+           var marker = new L.marker([this.coord[0], this.coord[1]], {icon: Available}).addTo(this.Map.myMap);
+            this.Map.available_stations++;
            }
-        else if(data.status == "CLOSED"){
-            var marker = new L.marker([this.coord[0], this.coord[1]], {icon: Closed}).addTo(newMap.myMap);
-            newMap.closed_stations++;
+        else if(data.status === "CLOSED"){
+            var marker = new L.marker([this.coord[0], this.coord[1]], {icon: Closed}).addTo(this.Map.myMap);
+            this.Map.closed_stations++;
         }
         else{
-           var marker = new L.marker([this.coord[0], this.coord[1]], {icon: notAvailable}).addTo(newMap.myMap);
-            newMap.empty_stations++;
+           var marker = new L.marker([this.coord[0], this.coord[1]], {icon: notAvailable}).addTo(this.Map.myMap);
+            this.Map.empty_stations++;
         }
         //Show popup with station name
         marker.bindPopup('<strong>Station:</strong><br>' + this.name).openPopup();
@@ -84,9 +85,9 @@ function Station(data) {
         })
     }
     
-    this.setStations = (Alldata) => {
+    this.setStations = (Alldata, Map) => {
         for (let i = 0; i < Alldata.length; i++) {
-            stations[i] = new Station(Alldata[i]);
+            stations[i] = new Station(Alldata[i], Map);
             stations[i].setMarker();
             //if an user exist, we set previous data
             if(localStorage.getItem('user')){
@@ -109,6 +110,6 @@ function Station(data) {
                 }
             }
         }
-        newMap.updateMapInfo();
+        Map.updateMapInfo();
     }
 }

@@ -1,7 +1,5 @@
 "use strict";
 
-
-
 //SLIDER OBJECT
 function Slider (slides, descriptions){
     this.slides = slides;
