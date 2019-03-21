@@ -6,6 +6,7 @@ function Reservation (){
     this.oldMessage = document.getElementById('reservOK');
     this.message = document.getElementById('reservNone');
     this.canvasObj;
+    this.resaStation;
     
     this.onCreate = () => {
          
@@ -27,9 +28,9 @@ function Reservation (){
         
         
         //Offline trick for simulate a real reservation on station panel
-        
-        this.updatePanel();
         this.save();
+        this.updatePanel();
+        
         
         this.message.setAttribute('style', 'display: none');
         this.oldMessage.setAttribute('style', 'display: block');
@@ -37,6 +38,7 @@ function Reservation (){
     
     this.updatePanel = () => {
         let resaCheck = JSON.parse(localStorage.getItem('reservation'));
+        console.log(this.resaStation);
         if(resaCheck.resaStation == this.resaStation){
             this.available_bike.placeholder = parseInt(this.available_bike.placeholder) + " (1 resa)";
         }
