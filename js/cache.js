@@ -71,6 +71,8 @@ function Cache() {
             else{
                 let message = document.getElementById('reservNone');
                 let oldMessage = document.getElementById('reservOK');
+                let userInformation = document.getElementById('user-information');
+                userInformation.setAttribute('style', 'display: block');
                 message.setAttribute('style', 'display: block');
                 oldMessage.setAttribute('style', 'display: none');
             }

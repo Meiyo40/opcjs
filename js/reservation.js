@@ -2,6 +2,7 @@
 function Reservation (){
     this.basicTimer = 19;
     this.startTimer = false;
+    this.userInformation = document.getElementById('user-information');
     this.userAccess = document.getElementById('userAccess');
     this.oldMessage = document.getElementById('reservOK');
     this.message = document.getElementById('reservNone');
