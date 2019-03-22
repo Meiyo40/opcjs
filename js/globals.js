@@ -4,6 +4,7 @@ var timer;
 var reservation;
 var toggleInfo;
 var canvasObj;
+var Alldata = [];
 
 let slider = new Slider(['assets/diapo/diapo1.jpg',
                         'assets/diapo/diapo2.jpg',
@@ -32,7 +33,5 @@ newMap.initMap();
 
 
 //Recup donnees API
-var jcdAPI = "https://api.jcdecaux.com/vls/v1/stations?contract=Toulouse&apiKey=14b9693cd22171c820eebfa713292d3ab49e6222";
-var Alldata = [];
-
-ajaxGet(jcdAPI, newMap);
+let ajax = new Ajax("https://api.jcdecaux.com/vls/v1/stations?contract=Toulouse&apiKey=14b9693cd22171c820eebfa713292d3ab49e6222");
+ajax.ajaxGet(newMap);
