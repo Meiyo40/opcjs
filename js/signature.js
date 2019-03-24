@@ -142,11 +142,22 @@ function CanvasObj() {
     }
     
     this.saveBtn.onclick = () => {
-       let availableBike = parseInt(document.getElementById('velo').placeholder);
-        if((canvasObj.signature_validation >= 5) & (availableBike > 0)){
+        let availableBike = parseInt(document.getElementById('velo').placeholder);
+        let stringTest = /^[A-Za-zÀ-ÖØ-öø-ÿ]+$/;
+        let name = document.getElementById("name").value;
+        let firstName = checkName = document.getElementById("firstname").value;
+        
+        if(((stringTest.test(name)) & 
+            (stringTest.test(firstName))) & 
+           (canvasObj.signature_validation >= 5) & 
+           (availableBike > 0)){
+            
             reservation =  new Reservation();
             reservation.canvasObj = canvasObj;
             reservation.onCreate();
+        }
+        else if ((!stringTest.test(name)) || (!stringTest.test(firstName))){
+            alert('Merci de n\'utiliser que des lettres pour votre nom et prénom');
         }
         else if(availableBike <= 0){
             alert('Pas assez de vélo disponible danss cette station');

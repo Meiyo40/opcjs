@@ -21,7 +21,7 @@ function Ajax(url) {
     }
     
     this.ajaxGet = (Map) => {
-        var oXhr = getXMLHttpRequest();
+        var oXhr = this.getXMLHttpRequest();
 
         oXhr.onerror = function (data) {
             console.log('Erreur... ');

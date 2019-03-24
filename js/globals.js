@@ -16,21 +16,15 @@ let slider = new Slider(['assets/diapo/diapo1.jpg',
                    "<strong>Profitez maintenant de votre réservation !</strong>"]
 );
 
-slider.sliderControl();
-slider.sizeTimer;
-slider.EventListener();
-slider.autoTimer;
+slider.init();
 
 cache = new Cache();
 canvasObj = new CanvasObj();
 cache.getCache();
 
-
-
 //CREATE TOULOUSE MAP
 var newMap = new Map('Toulouse', [43.604348, 1.443409], 'mapid');
 newMap.initMap();
-
 
 //Recup donnees API
 let ajax = new Ajax("https://api.jcdecaux.com/vls/v1/stations?contract=Toulouse&apiKey=14b9693cd22171c820eebfa713292d3ab49e6222");

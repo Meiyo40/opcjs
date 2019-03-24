@@ -17,7 +17,12 @@ function Slider (slides, descriptions){
     this.btnNext = document.getElementById('next');
     this.btnPause = document.getElementById('pause');
     
-    
+    this.init = () =>  {
+        this.sliderControl();
+        this.sizeTimer;
+        this.EventListener();
+        this.autoTimer;
+    }
     
     this.sliderControl = () => {
         if(this.slides != undefined){     
