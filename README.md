@@ -13,8 +13,4 @@ Objectives:<br>
 Even if we can use JQuery/Bootstrap (or other), I'll try to do it in "vanilla" for learning purpose.<br>
 The webiste is hosted by webhostapp from hostinger at this address:<br>
 
-http://cyclopc.000webhostapp.com
-
-You can also found the first project here:
-
-https://protoopcpa.000webhostapp.com/
+https://meiyo40.github.io/opcjs/
